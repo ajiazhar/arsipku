@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>tes tos</title>
+  <style>
+    body{font-family: Calibri, Arial, sans-serif; font-size: 12pt; line-height:1.4}
+    h1,h2,h3,h4{margin:0 0 10px 0}
+    table{border-collapse:collapse}
+    table, td, th{border:1px solid #000; padding:6px}
+    p{margin:0 0 8px 0}
+  </style>
+</head>
+<body><ol>
+	<li>jadi gini&nbsp;</li>
+</ol>
+</body>
+</html>

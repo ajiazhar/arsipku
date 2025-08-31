@@ -1,5 +1,10 @@
 {
+    "name": "dinas/arsipku",
+    "description": "website arsip dokumen dispusip",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
     "require": {
-        "fzaninotto/faker": "^1.8"
+        "phpoffice/phpspreadsheet": "^5.0"
     }
 }
