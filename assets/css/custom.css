@@ -1,0 +1,133 @@
+/* :root {
+    --bs-body-font-family: 'Poppins', sans-serif;
+    --bs-body-bg: #f5f5f5;
+    --bs-body-color: #222;
+    --bs-border-radius: 2rem;
+    --bs-border-radius-sm: 2rem;
+    --bs-border-radius-lg: 2rem;
+} */
+
+/* Terapkan font global */
+/* Gunakan Poppins untuk seluruh teks */
+body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    /* default normal */
+    font-style: normal;
+}
+
+/* Kalau butuh monospaced (misalnya untuk angka / code), pakai Roboto Mono */
+.code,
+pre,
+code,
+.numbers {
+    font-family: "Roboto Mono", monospace;
+}
+
+
+
+
+/* Semua box di dashboard */
+.breadcome-list,
+.white-box,
+.product-sales-chart,
+.single-cards-item {
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Kotak login */
+.hpanel {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border: none;
+    margin: 0 auto;
+    overflow: hidden;
+    /* biar anak di dalamnya ikut radius */
+}
+
+.panel-body {
+    border-radius: 0;
+}
+
+/* Input */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #006DF0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 109, 240, 0.2);
+}
+
+/* Tombol login */
+.loginbtn {
+    border-radius: 10px;
+    /* lebih tumpul */
+    background: #006DF0;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.loginbtn:hover {
+    background: #0050b3;
+}
+
+/* Panel utama */
+.panel {
+    border-radius: 10px;
+    /* sudut lebih tumpul */
+    border: 1px solid #ddd;
+    /* garis luar tipis */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    /* biar isi ikut radius */
+}
+
+/* Header panel */
+.panel-heading {
+    background: #fff;
+    /* biru sesuai login */
+    color: #000000;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Judul panel */
+.panel-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Isi panel */
+.panel-body {
+    background: #fff;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    /* sudut bawah tumpul */
+}
+
+/* Tabel */
+.table {
+    margin: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+    background: #eef5ff;
+}
+
+
+/* <link rel="stylesheet" href="../assets/css/custom.css"> */
+/* <link rel="stylesheet" href="assets/css/custom.css"> */

@@ -10,6 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/owl.carousel.css">
     <link rel="stylesheet" href="assets/css/owl.theme.css">
@@ -98,14 +99,6 @@
                 ?>
                 <div class="hpanel">
                     <div class="panel-body">
-
-                        <!-- <br>
-                        <br>
-                        <center>
-                            <h4>LOGIN USER</h4>    
-                        </center>
-                        <br>
-                        <br> -->
                         <center>
                             <img class="main-logo" src="assets/img/logo/logo_dispusip.png" alt=""
                                 style="width: 170px; height: 100px;" />
@@ -131,9 +124,6 @@
                         <br>
                     </div>
                 </div>
-                <!-- <br>
-                <a href="index.php">Kembali</a>
-                <br> -->
             </div>
             <div class="text-center login-footer">
                 <p class="text-muted">Copyright © <?php echo date('Y') ?>. All rights reserved. Sistem Informasi Arsip

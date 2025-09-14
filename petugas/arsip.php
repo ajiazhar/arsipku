@@ -91,15 +91,20 @@
                 }
                 ?>
             </center>
+            <!-- Table -->
             <table id="table" class="table table-bordered table-striped table-hover table-datatable">
                 <thead>
                     <tr>
                         <th width="1%">No</th>
-                        <th>Waktu Upload</th>
+                        <!-- <th>Waktu Upload</th> -->
+                        <th>Tahun</th>
                         <th>Arsip</th>
+                        <th>Deskripsi</th>
                         <th>Kategori</th>
-                        <th>Petugas</th>
+                        <!-- <th>Petugas</th> -->
                         <th>Rak</th>
+                        <th>Sampul</th>
+                        <th>Box</th>
                         <th>Akses</th>
                         <th>Keterangan</th>
                         <th class="text-center" width="20%">OPSI</th>
@@ -107,40 +112,53 @@
                 </thead>
                 <tbody>
                     <?php
-                    include '../koneksi.php';
                     $no = 1;
-                    $saya = $_SESSION['id'];
-                    // $arsip = mysqli_query($koneksi, "SELECT * FROM arsip,kategori,petugas WHERE arsip_petugas=petugas_id and arsip_kategori=kategori_id and arsip_petugas='$saya' ORDER BY arsip_id DESC");
-                    $arsip = mysqli_query($koneksi, "
-                        SELECT 
-                            a.*,
+                    $id_petugas = $_SESSION['id'];
+                    $arsip = mysqli_query(
+                        $koneksi,
+                        "SELECT 
+                            a.arsip_id,
+                            a.arsip_tahun,
+                            a.arsip_kode,
+                            a.arsip_nama,
                             k.kategori_nama,
                             p.petugas_nama,
-                            COALESCE(r.rak_nama, 'Belum diatur')  AS rak_nama,
-                            COALESCE(sa.akses_nama, 'Belum diatur') AS akses_nama
+                            COALESCE(r.rak_nama, 'Belum diatur') AS rak_nama,
+                            a.arsip_sampul,
+                            a.arsip_box,
+                            COALESCE(sa.akses_nama, 'Belum diatur') AS akses_nama,
+                            COALESCE(i.index_nama, 'Belum diatur') AS index_nama,  -- ✅ pakai i.index_nama, bukan a.index_nama
+                            a.arsip_jumlah,
+                            a.arsip_keterangan,
+                            a.arsip_deskripsi,
+                            a.arsip_file
                         FROM arsip a
-                        JOIN kategori k  ON a.arsip_kategori = k.kategori_id
-                        JOIN petugas p   ON a.arsip_petugas  = p.petugas_id
-                        LEFT JOIN arsip_rak r    ON a.arsip_rak   = r.rak_id
-                        LEFT JOIN surat_akses sa ON a.surat_akses = sa.akses_id
-                        WHERE a.arsip_petugas = '$saya'
-                        ORDER BY a.arsip_id DESC
-                    ");
+                        LEFT JOIN kategori k     ON a.arsip_kategori = k.kategori_id
+                        LEFT JOIN petugas p      ON a.arsip_petugas  = p.petugas_id
+                        LEFT JOIN arsip_rak r    ON a.arsip_rak      = r.rak_id
+                        LEFT JOIN surat_akses sa ON a.surat_akses    = sa.akses_id
+                        LEFT JOIN `index` i      ON a.arsip_index    = i.index_id
+                         WHERE a.arsip_petugas = '$id_petugas'
+                        ORDER BY a.arsip_id DESC"
+                    );
+
+
                     while ($p = mysqli_fetch_array($arsip)) {
                         ?>
                         <tr>
                             <td><?php echo $no++; ?></td>
-                            <td><?php echo date('H:i:s  d-m-Y', strtotime($p['arsip_waktu_upload'])) ?></td>
+                            <td><?= $p['arsip_tahun'] ? $p['arsip_tahun'] : 'Belum diatur'; ?></td>
                             <td>
-
                                 <b>KODE</b> : <?php echo $p['arsip_kode'] ?><br>
                                 <b>Nama</b> : <?php echo $p['arsip_nama'] ?><br>
-                                <b>Jenis</b> : <?php echo $p['arsip_jenis'] ?><br>
-
+                                <b>Jumlah</b> : <?php echo $p['arsip_jumlah'] ?><br>
+                                <b>index</b> : <?php echo $p['index_nama'] ?><br>
                             </td>
+                            <td><?php echo $p['arsip_deskripsi'] ?></td>
                             <td><?php echo $p['kategori_nama'] ?></td>
-                            <td><?php echo $p['petugas_nama'] ?></td>
                             <td><?php echo $p['rak_nama']; ?></td>
+                            <td><?php echo $p['arsip_sampul']; ?></td>
+                            <td><?php echo $p['arsip_box']; ?></td>
                             <td><?php echo $p['akses_nama']; ?></td>
                             <td><?php echo $p['arsip_keterangan'] ?></td>
                             <td class="text-center">

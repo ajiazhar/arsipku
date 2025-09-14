@@ -31,8 +31,6 @@
             <h3 class="panel-title">Data Surat</h3>
         </div>
         <div class="panel-body">
-            <br><br><br>
-
             <table id="table" class="table table-bordered table-striped table-hover table-datatable">
                 <thead>
                     <tr>

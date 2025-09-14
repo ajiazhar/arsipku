@@ -2242,6 +2242,7 @@ ul.tab-review-design li a:focus {
 }
 
 .panel-body {
+    border-radius: 10px;
     padding: 15px;
     background: #fff;
 }
@@ -4835,15 +4836,15 @@ div#sparklinehome canvas {
 }
 
 .sidebar-nav .metismenu {
-    background: #fff;
+    background: #575cb5;
 }
 
 .sidebar-nav {
-    background: #fff;
+    background: #575cb5;
 }
 
 .sidebar-nav ul {
-    background: #fff;
+    background: #575cb5;
 }
 
 #sidebar.active .sidebar-nav ul.metismenu li ul.submenu-angle {

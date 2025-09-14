@@ -26,17 +26,13 @@
 
 <div class="container-fluid">
     <div class="panel panel">
-
         <div class="panel-heading">
             <h3 class="panel-title">Data Rak</h3>
         </div>
         <div class="panel-body">
-
-
             <div class="pull-right">
                 <a href="rak_tambah.php" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Rak</a>
             </div>
-
             <br>
             <br>
             <br>
@@ -97,21 +93,12 @@
                                 </div>
                             </td>
                         </tr>
-
-
-
                         <?php
                     }
                     ?>
                 </tbody>
-
             </table>
-
-
         </div>
-
     </div>
 </div>
-
-
 <?php include 'footer.php'; ?>

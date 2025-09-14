@@ -10,6 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/css/owl.carousel.css">
     <link rel="stylesheet" href="../assets/css/owl.theme.css">
@@ -136,15 +137,14 @@
                                         <div class="header-top-menu tabl-d-n">
                                             <ul class="nav navbar-nav mai-top-nav" style="margin-left: -70px;">
                                                 <li class="nav-item"><a href="#" class="nav-link">Sistem Arsip Dokumen
-                                                        Dispusip</a></li>
+                                                        Dispusip</a>
+                                                </li>
                                             </ul>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
-
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"
                                                         aria-expanded="false" class="nav-link dropdown-toggle">
@@ -171,11 +171,11 @@
                                                                     class="edu-icon edu-money author-log-ic"></span>Profil</a>
                                                         </li>
                                                         <li><a href="gantipassword.php"><span
-                                                                    class="edu-icon edu-settings author-log-ic"></span>Ganti
-                                                                Password</a></li>
+                                                                    class="edu-icon edu-settings author-log-ic"></span>GantiPassword</a>
+                                                        </li>
                                                         <li><a href="logout.php"><span
-                                                                    class="edu-icon edu-locked author-log-ic"></span>Log
-                                                                Out</a></li>
+                                                                    class="edu-icon edu-locked author-log-ic"></span>LogOut</a>
+                                                        </li>
                                                     </ul>
                                                 </li>
 
@@ -206,22 +206,25 @@
                                         <li>
                                             <a href="arsip.php" aria-expanded="false"><span
                                                     class="educate-icon educate-data-table icon-wrap sub-icon-mg"
-                                                    aria-hidden="true"></span> <span class="mini-click-non">Data
-                                                    Arsip</span></a>
+                                                    aria-hidden="true"></span> <span
+                                                    class="mini-click-non">DataArsip</span>
+                                            </a>
                                         </li>
 
                                         <li>
                                             <a href="gantipassword.php" aria-expanded="false"><span
                                                     class="educate-icon educate-danger icon-wrap sub-icon-mg"
-                                                    aria-hidden="true"></span> <span class="mini-click-non">Ganti
-                                                    Password</span></a>
+                                                    aria-hidden="true"></span> <span
+                                                    class="mini-click-non">GantiPassword</span>
+                                            </a>
                                         </li>
 
                                         <li>
                                             <a href="logout.php" aria-expanded="false"><span
                                                     class="educate-icon educate-pages icon-wrap sub-icon-mg"
                                                     aria-hidden="true"></span> <span
-                                                    class="mini-click-non">Logout</span></a>
+                                                    class="mini-click-non">Logout</span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -231,3 +234,5 @@
                 </div>
             </div>
         </div>
+    </div>
+</body>

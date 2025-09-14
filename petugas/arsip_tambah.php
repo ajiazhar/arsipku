@@ -3,15 +3,15 @@
 <div class="breadcome-area">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12">
                 <div class="breadcome-list">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6">
                             <div class="breadcome-heading">
                                 <h4 style="margin-bottom: 0px">Upload Arsip</h4>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-6">
                             <ul class="breadcome-menu" style="padding-top: 0px">
                                 <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
                                 <li><span class="bread-blod">Arsip</span></li>
@@ -26,45 +26,43 @@
 
 <div class="container-fluid">
 
-
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3">
             <div class="panel panel">
 
                 <div class="panel-heading">
-                    <h3 class="panel-title">Upload arsip</h3>
+                    <h3 class="panel-title">Upload Arsip</h3>
                 </div>
                 <div class="panel-body">
 
                     <div class="pull-right">
-                        <a href="arsip.php" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
+                        <a href="arsip.php" class="btn btn-sm btn-primary">
+                            <i class="fa fa-arrow-left"></i> Kembali
+                        </a>
                     </div>
 
-                    <br>
-                    <br>
+                    <br><br>
 
                     <form method="post" action="arsip_aksi.php" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <label>Kode Arsip</label>
-                            <input type="text" class="form-control" name="kode" required="required">
+                            <input type="text" class="form-control" name="kode" required>
                         </div>
 
                         <div class="form-group">
                             <label>Nama Arsip</label>
-                            <input type="text" class="form-control" name="nama" required="required">
+                            <input type="text" class="form-control" name="nama" required>
                         </div>
 
                         <div class="form-group">
                             <label>Rak Penyimpanan</label>
-                            <select class="form-control" name="rak" required="required">
+                            <select class="form-control" name="rak" required>
                                 <option value="">Pilih rak</option>
                                 <?php
                                 $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak ORDER BY rak_nama ASC");
                                 while ($r = mysqli_fetch_array($rak)) {
-                                    ?>
-                                    <option value="<?php echo $r['rak_id']; ?>"><?php echo $r['rak_nama']; ?></option>
-                                    <?php
+                                    echo "<option value='{$r['rak_id']}'>{$r['rak_nama']}</option>";
                                 }
                                 ?>
                             </select>
@@ -72,14 +70,12 @@
 
                         <div class="form-group">
                             <label>Akses Surat</label>
-                            <select class="form-control" name="akses" required="required">
+                            <select class="form-control" name="akses" required>
                                 <option value="">Pilih akses</option>
                                 <?php
                                 $akses = mysqli_query($koneksi, "SELECT * FROM surat_akses ORDER BY akses_nama ASC");
                                 while ($a = mysqli_fetch_array($akses)) {
-                                    ?>
-                                    <option value="<?php echo $a['akses_id']; ?>"><?php echo $a['akses_nama']; ?></option>
-                                    <?php
+                                    echo "<option value='{$a['akses_id']}'>{$a['akses_nama']}</option>";
                                 }
                                 ?>
                             </select>
@@ -87,23 +83,61 @@
 
                         <div class="form-group">
                             <label>Kategori</label>
-                            <select class="form-control" name="kategori" required="required">
+                            <select class="form-control" name="kategori" required>
                                 <option value="">Pilih kategori</option>
                                 <?php
-                                $kategori = mysqli_query($koneksi, "SELECT * FROM kategori");
+                                $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
                                 while ($k = mysqli_fetch_array($kategori)) {
-                                    ?>
-                                    <option value="<?php echo $k['kategori_id']; ?>"><?php echo $k['kategori_nama']; ?>
-                                    </option>
-                                    <?php
+                                    echo "<option value='{$k['kategori_id']}'>{$k['kategori_nama']}</option>";
                                 }
                                 ?>
                             </select>
                         </div>
 
                         <div class="form-group">
+                            <label>Index</label>
+                            <select name="index" class="form-control">
+                                <option value="">- Pilih Index -</option>
+                                <?php
+                                $index = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
+                                while ($i = mysqli_fetch_array($index)) {
+                                    echo "<option value='{$i['index_id']}'>{$i['index_nama']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+
+                        <!-- Tambahan baru -->
+                        <div class="form-group">
+                            <label>Jumlah</label>
+                            <input type="text" class="form-control" name="jumlah">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sampul</label>
+                            <input type="text" class="form-control" name="sampul">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Box</label>
+                            <input type="text" class="form-control" name="box">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <input type="number" class="form-control" name="tahun" placeholder="contoh: 2025" required>
+                        </div>
+                        <!-- End tambahan baru -->
+
+                        <div class="form-group">
                             <label>Keterangan</label>
-                            <textarea class="form-control" name="keterangan" required="required"></textarea>
+                            <textarea class="form-control" name="keterangan" required></textarea>
                         </div>
 
                         <div class="form-group">
@@ -112,8 +146,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label></label>
-                            <input type="submit" class="btn btn-primary" value="Upload">
+                            <button type="submit" class="btn btn-primary">Upload</button>
                         </div>
 
                     </form>
@@ -123,8 +156,6 @@
         </div>
     </div>
 
-
 </div>
 
-
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>P
