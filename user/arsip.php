@@ -36,16 +36,17 @@
                 <thead>
                     <tr>
                         <th width="1%">No</th>
-                        <!-- <th>Waktu Upload</th> -->
-                        <th>Tahun</th>
+                        <th>Kode Klasifikasi</th>
                         <th>Arsip</th>
-                        <th>Deskripsi</th>
-                        <th>Kategori</th>
-                        <!-- <th>Petugas</th> -->
-                        <th>Rak</th>
+                        <th>Index</th>
+                        <th>Uraian Informasi Arsip</th>
+                        <th>Kurun Waktu</th>
+                        <th>Jumlah</th>
                         <th>Sampul</th>
                         <th>Box</th>
-                        <th>Akses</th>
+                        <th>Rak</th>
+                        <th>Tingkat Perkembangan</th>
+                        <td>Hak Akses</td>
                         <th>Keterangan</th>
                         <th class="text-center" width="20%">OPSI</th>
                     </tr>
@@ -60,6 +61,7 @@
                             a.arsip_tahun,
                             a.arsip_kode,
                             a.arsip_nama,
+                            a.arsip_bidang,
                             k.kategori_nama,
                             p.petugas_nama,
                             COALESCE(r.rak_nama, 'Belum diatur') AS rak_nama,
@@ -81,16 +83,21 @@
                         ?>
                         <tr>
                             <td><?php echo $no++; ?></td>
-                            <td><?= $p['arsip_tahun'] ? $p['arsip_tahun'] : 'Belum diatur'; ?></td>
+                            <td><?php echo $p['arsip_kode'] ?></td>
                             <td>
-                                <b>KODE</b> : <?php echo $p['arsip_kode'] ?><br>
-                                <b>Nama</b> : <?php echo $p['arsip_nama'] ?><br>
+                                <b>Pencipta</b> : <?php echo $p['arsip_nama'] ?><br>
+                                <b>Bidang</b> : <?php echo $p['arsip_bidang'] ?><br>
+                                <?php
+                                ?>
                             </td>
+                            <td><?php echo $p['index_nama'] ?></td>
                             <td><?php echo $p['arsip_deskripsi'] ?></td>
-                            <td><?php echo $p['kategori_nama'] ?></td>
-                            <td><?php echo $p['rak_nama']; ?></td>
+                            <td><?= $p['arsip_tahun'] ? $p['arsip_tahun'] : 'Belum diatur'; ?></td>
+                            <td><?php echo $p['arsip_jumlah'] ?></td>
                             <td><?php echo $p['arsip_sampul']; ?></td>
                             <td><?php echo $p['arsip_box']; ?></td>
+                            <td><?php echo $p['rak_nama']; ?></td>
+                            <td><?php echo $p['kategori_nama'] ?></td>
                             <td><?php echo $p['akses_nama']; ?></td>
                             <td><?php echo $p['arsip_keterangan'] ?></td>
                             <td class="text-center">

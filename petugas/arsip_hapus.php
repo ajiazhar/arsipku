@@ -5,10 +5,9 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id > 0) {
     // Ambil data arsip
-    $lama = mysqli_query($koneksi, "SELECT * FROM arsip WHERE arsip_id='$id'");
-    $l = mysqli_fetch_assoc($lama);
-
-    if ($l) {
+    $lama = mysqli_query($koneksi, "SELECT * FROM arsip WHERE arsip_id='$id' LIMIT 1");
+    if (mysqli_num_rows($lama) > 0) {
+        $l = mysqli_fetch_assoc($lama);
         $nama_file_lama = $l['arsip_file'];
 
         // Hapus file fisik jika ada
@@ -17,7 +16,7 @@ if ($id > 0) {
         }
 
         // Hapus data dari DB
-        mysqli_query($koneksi, "DELETE FROM arsip WHERE arsip_id='$id'") or die(mysqli_error($koneksi));
+        mysqli_query($koneksi, "DELETE FROM arsip WHERE arsip_id='$id' LIMIT 1") or die(mysqli_error($koneksi));
 
         header("location:arsip.php?alert=hapus_sukses");
         exit();

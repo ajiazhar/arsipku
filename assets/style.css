@@ -262,6 +262,7 @@ body {}
 }
 
 .left-sidebar-pro {
+
     z-index: 9999;
     width: 240px;
 }
@@ -355,7 +356,7 @@ body {}
     border-radius: 0;
     border: 0px solid #fff;
     box-shadow: none;
-    background: #ebebeb;
+    background: #ffffff;
 }
 
 .left-custom-menu-adp-wrap .dropdown-menu {
@@ -4836,15 +4837,15 @@ div#sparklinehome canvas {
 }
 
 .sidebar-nav .metismenu {
-    background: #575cb5;
+    background: #ffffff;
 }
 
 .sidebar-nav {
-    background: #575cb5;
+    background: #f5f5f5;
 }
 
 .sidebar-nav ul {
-    background: #575cb5;
+    background: #ffffff;
 }
 
 #sidebar.active .sidebar-nav ul.metismenu li ul.submenu-angle {
@@ -6283,6 +6284,7 @@ div#sparklinehome canvas {
     color: #fff;
     text-decoration: none;
 }
+
 
 /* ==============================
    24. Custom Override

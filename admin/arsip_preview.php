@@ -82,11 +82,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Nama File</th>
+                                        <th>Pencipta</th>
                                         <td><?= htmlspecialchars($d['arsip_nama']); ?></td>
                                     </tr>
                                     <tr>
-                                        <th>Kategori</th>
+                                        <th>Bidang</th>
+                                        <td><?= htmlspecialchars($d['arsip_bidang']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tingkat Perkembangan</th>
                                         <td><?= htmlspecialchars($d['kategori_nama'] ?? '-'); ?></td>
                                     </tr>
                                     <tr>

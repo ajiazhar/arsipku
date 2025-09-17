@@ -57,9 +57,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Nama Arsip</label>
-                                <input type="text" class="form-control" name="nama" required="required"
+                                <label>Pencipta</label>
+                                <input type="text" class="form-control" name="pencipta" required="required"
                                     value="<?= $d['arsip_nama']; ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bidang</label>
+                                <input type="text" class="form-control" name="bidang" required="required"
+                                    value="<?= $d['arsip_bidang']; ?>">
                             </div>
 
                             <div class="form-group">
@@ -89,7 +95,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Kategori</label>
+                                <label>Tingkat Perkembangan</label>
                                 <select class="form-control" name="kategori" required="required">
                                     <option value="">Pilih kategori</option>
                                     <?php

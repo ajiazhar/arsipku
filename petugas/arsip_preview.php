@@ -82,8 +82,12 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Nama File</th>
+                                        <th>Pencipta</th>
                                         <td><?= htmlspecialchars($d['arsip_nama']); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bidang</th>
+                                        <td><?= htmlspecialchars($d['arsip_bidang']); ?></td>
                                     </tr>
                                     <tr>
                                         <th>Kategori</th>

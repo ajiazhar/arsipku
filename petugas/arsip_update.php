@@ -5,7 +5,8 @@ date_default_timezone_set('Asia/Jakarta');
 
 $id = $_POST['id'];
 $kode = $_POST['kode'];
-$nama = $_POST['nama'];
+$nama = $_POST['pencipta'];
+$bidang = $_POST['bidang'];
 $tahun = $_POST['tahun'];
 $sampul = $_POST['sampul'];
 $box = $_POST['box'];
@@ -26,6 +27,7 @@ if ($filename == "") {
         UPDATE arsip SET 
             arsip_kode='$kode',
             arsip_nama='$nama',
+            arsip_bidang='$bidang',
             arsip_tahun='$tahun',
             arsip_sampul='$sampul',
             arsip_box='$box',
@@ -66,6 +68,7 @@ if ($filename == "") {
             UPDATE arsip SET 
                 arsip_kode='$kode',
                 arsip_nama='$nama',
+                arsip_bidang='$bidang',
                 arsip_tahun='$tahun',
                 arsip_sampul='$sampul',
                 arsip_box='$box',

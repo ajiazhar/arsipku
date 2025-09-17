@@ -30,10 +30,10 @@ try {
     $sheet = $spreadsheet->getActiveSheet();
 
     // Nama ada di C3
-    $pencipta = trim((string) $sheet->getCell('C3')->getValue());
+    $arsip_nama = trim((string) $sheet->getCell('C3')->getValue());
     $highestRow = (int) $sheet->getHighestRow();
 
-    if ($pencipta === '') {
+    if ($arsip_nama === '') {
         exit('Nama (C3) kosong. Isi C3 pada file Excel.');
     }
 
@@ -42,10 +42,20 @@ try {
 
     // prepared statement: 12 parameter (see binding types below)
     $sql = "INSERT INTO arsip (
-        arsip_waktu_upload, arsip_petugas, arsip_kode, arsip_index,
-        arsip_nama, arsip_deskripsi, arsip_tahun, arsip_jumlah,
-        arsip_sampul, arsip_box, arsip_rak, arsip_keterangan, arsip_kategori
-    ) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    arsip_petugas,
+    arsip_kode,
+    arsip_index,
+    arsip_nama,
+    arsip_deskripsi,
+    arsip_tahun,
+    arsip_jumlah,
+    arsip_sampul,
+    arsip_box,
+    arsip_rak,
+    arsip_kategori,
+    surat_akses,
+    arsip_keterangan
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($koneksi, $sql);
     if (!$stmt) {
@@ -98,20 +108,21 @@ try {
         $arsip_kode = trim((string) $sheet->getCell("B{$row}")->getValue()); // B = KODE KLASIFIKASI -> arsip_kode
         $arsip_index_in = trim((string) $sheet->getCell("C{$row}")->getValue()); // C = INDEKS (nama atau id)
         $arsip_deskripsi = trim((string) $sheet->getCell("D{$row}")->getValue()); // D = Uraian informasi
-        $tahun_arsip = trim((string) $sheet->getCell("E{$row}")->getValue()); // E = Kurun waktu
+        $arsip_tahun = trim((string) $sheet->getCell("E{$row}")->getValue()); // E = Kurun waktu
         $arsip_jumlah = trim((string) $sheet->getCell("F{$row}")->getValue()); // F = Jumlah
         $arsip_sampul = trim((string) $sheet->getCell("G{$row}")->getValue()); // G = Sampul
         $arsip_box = trim((string) $sheet->getCell("H{$row}")->getValue()); // H = Box
         $arsip_rak_in = trim((string) $sheet->getCell("I{$row}")->getValue()); // I = Rak (nama atau id)
-        $arsip_kategori_in = trim((string) $sheet->getCell("K{$row}")->getValue()); // K = Kategori (baru)
-        $arsip_keterangan = trim((string) $sheet->getCell("N{$row}")->getValue()); // N = Ket.
+        $arsip_kategori_in = trim((string) $sheet->getCell("J{$row}")->getValue()); // J = Kategori (baru)
+        $surat_akses_in = trim((string) $sheet->getCell("K" . $row)->getValue()); // K = akses nama
+        $arsip_keterangan = trim((string) $sheet->getCell("L{$row}")->getValue()); // L = Ket.
 
         // jika baris kosong (minimal isi) -> skip
         if ($arsip_kode === '' && $arsip_index_in === '' && $arsip_deskripsi === '') {
             continue;
         }
 
-        // validasi minimal: arsip_kode wajib (sesuai mapping), pencipta sudah dicek sebelum
+        // validasi minimal: arsip_kode wajib (sesuai mapping), arsip_nama sudah dicek sebelum
         if ($arsip_kode === '') {
             $fail++;
             $errors[] = "Baris {$row}: kolom KODE (B{$row}) kosong, dilewati.";
@@ -155,6 +166,24 @@ try {
             }
         }
 
+        // Default jika tidak ditemukan
+        $surat_akses = 0;
+        if ($surat_akses_in !== '') {
+            if (ctype_digit($surat_akses_in)) {
+                $surat_akses = (int) $surat_akses_in;
+            } else {
+                $q = mysqli_prepare($koneksi, "SELECT akses_id FROM surat_akses WHERE akses_nama = ? LIMIT 1");
+                if ($q) {
+                    mysqli_stmt_bind_param($q, 's', $surat_akses_in);
+                    mysqli_stmt_execute($q);
+                    mysqli_stmt_bind_result($q, $foundAksesId);
+                    if (mysqli_stmt_fetch($q))
+                        $surat_akses = (int) $foundAksesId;
+                    mysqli_stmt_close($q);
+                }
+            }
+        }
+
         // lookup kategori -> id atau 0
         $arsip_kategori = 0; // default 0 = tidak berkategori
         if ($arsip_kategori_in !== '') {
@@ -178,34 +207,33 @@ try {
         // 1 i (petugasId)
         // 2 s (arsip_kode)
         // 3 i (arsip_index)
-        // 4 s (arsip_nama = pencipta)
+        // 4 s (arsip_nama = arsip_nama)
         // 5 s (arsip_deskripsi)
-        // 6 s (tahun_arsip)
+        // 6 s (arsip_tah$arsip_tahun)
         // 7 s (arsip_jumlah)
         // 8 s (arsip_sampul)
         // 9 s (arsip_box)
         // 10 i (arsip_rak)
         // 11 s (arsip_keterangan)
         // 12 i (arsip_kategori)
-        $types = 'isissssssis i'; // a bit spaced for readability below - will remove spaces in actual call
+        $types = "isissssssiiis";
 
-        // remove spaces to get actual type string
         $types = str_replace(' ', '', $types); // becomes "isissssssisi" (12 chars)
-        // prepare variables
-        $param1 = $petugasId;
-        $param2 = $arsip_kode;
-        $param3 = $arsip_index;
-        $param4 = $pencipta;
-        $param5 = $arsip_deskripsi;
-        $param6 = $tahun_arsip;
-        $param7 = $arsip_jumlah;
-        $param8 = $arsip_sampul;
-        $param9 = $arsip_box;
-        $param10 = $arsip_rak;
-        $param11 = $arsip_keterangan;
-        $param12 = $arsip_kategori;
 
-        // bind param (use references)
+        $param1 = $petugasId;
+        $param2 = $arsip_kode;       // kolom B
+        $param3 = $arsip_index;      // kolom C
+        $param4 = $arsip_nama;       // dari C3 (sama semua baris)
+        $param5 = $arsip_deskripsi;  // kolom D
+        $param6 = $arsip_tahun;      // kolom E
+        $param7 = $arsip_jumlah;     // kolom F
+        $param8 = $arsip_sampul;     // kolom G
+        $param9 = $arsip_box;        // kolom H
+        $param10 = $arsip_rak;        // kolom I
+        $param11 = $arsip_kategori;   // kolom J
+        $param12 = $surat_akses;      // kolom K
+        $param13 = $arsip_keterangan; // kolom L
+
         mysqli_stmt_bind_param(
             $stmt,
             $types,
@@ -220,8 +248,10 @@ try {
             $param9,
             $param10,
             $param11,
-            $param12
+            $param12,
+            $param13
         );
+
 
         if (!mysqli_stmt_execute($stmt)) {
             $fail++;
@@ -231,106 +261,26 @@ try {
         }
     } // end for
 
-    if ($fail > 0) {
-        mysqli_rollback($koneksi);
-        echo "Import selesai dengan error. Berhasil: {$ok}, Gagal: {$fail}<br>";
-        echo implode('<br>', $errors);
-    } else {
-        mysqli_commit($koneksi);
-        echo "✅ Import sukses. Baris berhasil: {$ok}";
-    }
-
-} catch (Exception $e) {
-    if (isset($koneksi) && mysqli_connect_errno() === 0)
-        mysqli_rollback($koneksi);
-    exit('Terjadi kesalahan: ' . $e->getMessage());
-
-} catch (Exception $e) {
-    mysqli_rollback($koneksi);
-    exit("Terjadi kesalahan: " . $e->getMessage());
-
-
     // Commit bila minimal ada 1 sukses
     mysqli_commit($koneksi);
-
-    // Tampilan hasil + auto redirect
-    $backUrl = 'arsip.php';
-    ?>
-    <!doctype html>
-    <html lang="id">
-
-    <head>
-        <meta charset="utf-8">
-        <title>Hasil Import</title>
-        <meta http-equiv="refresh" content="3;url=<?php echo htmlspecialchars($backUrl, ENT_QUOTES); ?>">
-        <style>
-            body {
-                font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Helvetica, Arial, sans-serif;
-                padding: 24px;
-            }
-
-            .box {
-                max-width: 680px;
-                margin: auto;
-                border: 1px solid #e5e7eb;
-                border-radius: 12px;
-                padding: 24px
-            }
-
-            .ok {
-                color: #16a34a;
-                font-weight: 600
-            }
-
-            .fail {
-                color: #dc2626;
-                font-weight: 600
-            }
-
-            .btn {
-                display: inline-block;
-                margin-top: 16px;
-                padding: 10px 16px;
-                border-radius: 10px;
-                border: 1px solid #e5e7eb;
-                text-decoration: none
-            }
-        </style>
-    </head>
-
-    <body>
-        <div class="box">
-            <h2>Import Data Arsip</h2>
-            <p><span class="ok">Berhasil:</span> <?php echo $ok; ?> baris &nbsp; • &nbsp; <span class="fail">Gagal:</span>
-                <?php echo $fail; ?> baris</p>
-
-            <?php if ($fail > 0): ?>
-                <details>
-                    <summary>Detail error</summary>
-                    <ul>
-                        <?php foreach ($errors as $e)
-                            echo '<li>' . htmlspecialchars($e, ENT_QUOTES) . '</li>'; ?>
-                    </ul>
-                </details>
-            <?php endif; ?>
-
-            <p>Anda akan dialihkan ke halaman data arsip dalam 3 detik…</p>
-            <a class="btn" href="<?php echo htmlspecialchars($backUrl, ENT_QUOTES); ?>">Kembali sekarang</a>
-        </div>
-        <script>
-            setTimeout(function () { location.href = "<?php echo addslashes($backUrl); ?>"; }, 3000);
-        </script>
-    </body>
-
-    </html>
-    <?php
+    header('Content-Type: application/json');
+    echo json_encode([
+        'status' => 'ok',
+        'success' => $ok,
+        'fail' => $fail,
+        'errors' => $errors
+    ]);
     exit;
 
 } catch (Throwable $e) {
-    // Gagal total: rollback bila perlu
     if ($koneksi && mysqli_errno($koneksi)) {
         @mysqli_rollback($koneksi);
     }
     http_response_code(500);
-    exit('Gagal memproses file: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES));
+    header('Content-Type: application/json');
+    echo json_encode([
+        'status' => 'error',
+        'message' => $e->getMessage()
+    ]);
+    exit;
 }

@@ -25,7 +25,6 @@
 </div>
 
 <div class="container-fluid">
-
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3">
             <div class="panel panel">
@@ -51,8 +50,38 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Nama Arsip</label>
-                            <input type="text" class="form-control" name="nama" required>
+                            <label>Pencipta</label>
+                            <input type="text" class="form-control" name="Pencipta" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bidang</label>
+                            <input type="text" class="form-control" name="Bidang" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <input type="number" class="form-control" name="tahun" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jumlah</label>
+                            <input type="text" class="form-control" name="jumlah" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sampul</label>
+                            <input type="text" class="form-control" name="sampul" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Box</label>
+                            <input type="text" class="form-control" name="box" required>
                         </div>
 
                         <div class="form-group">
@@ -63,6 +92,19 @@
                                 $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak ORDER BY rak_nama ASC");
                                 while ($r = mysqli_fetch_array($rak)) {
                                     echo "<option value='{$r['rak_id']}'>{$r['rak_nama']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tingkat Perkembangan</label>
+                            <select class="form-control" name="kategori" required>
+                                <option value="">Pilih kategori</option>
+                                <?php
+                                $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
+                                while ($k = mysqli_fetch_array($kategori)) {
+                                    echo "<option value='{$k['kategori_id']}'>{$k['kategori_nama']}</option>";
                                 }
                                 ?>
                             </select>
@@ -82,19 +124,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Kategori</label>
-                            <select class="form-control" name="kategori" required>
-                                <option value="">Pilih kategori</option>
-                                <?php
-                                $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
-                                while ($k = mysqli_fetch_array($kategori)) {
-                                    echo "<option value='{$k['kategori_id']}'>{$k['kategori_nama']}</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
                             <label>Index</label>
                             <select name="index" class="form-control">
                                 <option value="">- Pilih Index -</option>
@@ -105,33 +134,6 @@
                                 }
                                 ?>
                             </select>
-                        </div>
-
-
-                        <!-- Tambahan baru -->
-                        <div class="form-group">
-                            <label>Jumlah</label>
-                            <input type="text" class="form-control" name="jumlah">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Sampul</label>
-                            <input type="text" class="form-control" name="sampul">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Box</label>
-                            <input type="text" class="form-control" name="box">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Deskripsi</label>
-                            <textarea class="form-control" name="deskripsi"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Tahun</label>
-                            <input type="number" class="form-control" name="tahun" placeholder="contoh: 2025" required>
                         </div>
                         <!-- End tambahan baru -->
 
@@ -155,7 +157,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <?php include 'footer.php'; ?>P

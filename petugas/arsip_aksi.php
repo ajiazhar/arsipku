@@ -7,7 +7,8 @@ $waktu = date('Y-m-d H:i:s');
 $petugas = $_SESSION['id'];
 $kode = $_POST['kode'];
 $index = $_POST['index'];
-$nama = $_POST['nama'];
+$nama = $_POST['pencipta'];
+$bidang = $_POST['bidang'];
 $tahun = $_POST['tahun']; // input manual
 
 $rand = rand();
@@ -33,9 +34,9 @@ if ($jenis == "php") {
 
 	// Insert data ke tabel arsip langsung pakai arsip_tahun
 	$query = "INSERT INTO arsip 
-        (arsip_waktu_upload, arsip_tahun, arsip_petugas, arsip_rak, arsip_jumlah, surat_akses, arsip_kode, arsip_index, arsip_nama, arsip_kategori, arsip_keterangan, arsip_deskripsi, arsip_sampul, arsip_box, arsip_file) 
+        (arsip_waktu_upload, arsip_tahun, arsip_petugas, arsip_rak, arsip_jumlah, surat_akses, arsip_kode, arsip_index, arsip_nama, arsip_bidang, arsip_kategori, arsip_keterangan, arsip_deskripsi, arsip_sampul, arsip_box, arsip_file) 
         VALUES 
-        ('$waktu', '$tahun', '$petugas', '$rak', '$jumlah', '$akses', '$kode', '$index', '$nama', '$kategori', '$keterangan', '$deskripsi', '$sampul', '$box', '$nama_file')";
+        ('$waktu', '$tahun', '$petugas', '$rak', '$jumlah', '$akses', '$kode', '$index', '$nama', '$bidang', '$kategori', '$keterangan', '$deskripsi', '$sampul', '$box', '$nama_file')";
 
 	mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
 
