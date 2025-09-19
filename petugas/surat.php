@@ -8,13 +8,13 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="breadcome-heading">
-                                <h4 style="margin-bottom: 0px">Data Surat</h4>
+                                <h4 style="margin-bottom: 0px">Hak Akses</h4>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <ul class="breadcome-menu" style="padding-top: 0px">
                                 <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-                                <li><span class="bread-blod">Surat</span></li>
+                                <li><span class="bread-blod">Akses</span></li>
                             </ul>
                         </div>
                     </div>
@@ -28,16 +28,15 @@
     <div class="panel panel">
 
         <div class="panel-heading">
-            <h3 class="panel-title">Data Surat</h3>
+            <h3 class="panel-title">Hak Akses</h3>
         </div>
         <div class="panel-body">
-            <br><br><br>
 
             <table id="table" class="table table-bordered table-striped table-hover table-datatable">
                 <thead>
                     <tr>
                         <th width="1%">No</th>
-                        <th>Nama Surat</th>
+                        <th>Nama</th>
                         <th>Keterangan</th> <!-- Tambahan kolom -->
                     </tr>
                 </thead>

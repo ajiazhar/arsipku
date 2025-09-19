@@ -154,8 +154,7 @@
 
                             <div class="form-group">
                                 <label>Keterangan</label>
-                                <textarea class="form-control" name="keterangan"
-                                    required="required"><?= $d['arsip_keterangan']; ?></textarea>
+                                <textarea class="form-control" name="keterangan"><?= $d['arsip_keterangan']; ?></textarea>
                             </div>
 
                             <div class="form-group">

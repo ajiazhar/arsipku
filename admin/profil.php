@@ -66,11 +66,56 @@
 
                 <?php
                 if (isset($_GET['alert'])) {
+                    $msg = "";
+                    $class = "";
+
                     if ($_GET['alert'] == "sukses") {
-                        echo "<div class='alert alert-success'>Password anda berhasil diganti!</div>";
+                        $msg = "Profil berhasil diperbarui!";
+                        $class = "success";
+                    } elseif ($_GET['alert'] == "hapus_sukses") {
+                        $msg = "Foto profil berhasil dihapus!";
+                        $class = "warning";
+                    } elseif ($_GET['alert'] == "gagal_upload") {
+                        $msg = "Gagal mengunggah foto!";
+                        $class = "danger";
+                    } elseif ($_GET['alert'] == "format_tidak_valid") {
+                        $msg = "Format file tidak valid! (hanya gif/png/jpg/jpeg)";
+                        $class = "danger";
+                    }
+
+                    if ($msg != "") {
+                        echo "<div class='my-alert $class'>$msg</div>";
                     }
                 }
                 ?>
+                <style>
+                    .my-alert {
+                        padding: 12px 20px;
+                        margin: 10px 0;
+                        border-radius: 5px;
+                        font-size: 14px;
+                        color: #fff;
+                        opacity: 1;
+                        transition: opacity 0.5s ease-out;
+                    }
+
+                    .my-alert.success {
+                        background-color: #28a745;
+                    }
+
+                    /* hijau */
+                    .my-alert.warning {
+                        background-color: #ffc107;
+                        color: #000;
+                    }
+
+                    /* kuning */
+                    .my-alert.danger {
+                        background-color: #dc3545;
+                    }
+
+                    /* merah */
+                </style>
 
                 <div class="panel">
                     <div class="panel-heading">
@@ -96,6 +141,16 @@
                                 <label>Foto</label>
                                 <input type="file" name="foto">
                                 <small>Kosongkan jika tidak ingin mengubah foto.</small>
+                            </div>
+
+                            <div> <?php if (!empty($s['admin_foto']) && $s['admin_foto'] != ''): ?>
+                                    <br><br>
+                                    <a href="profil_hapus_foto.php?id=<?php echo $s['admin_id']; ?>"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus foto profil?')">
+                                        <i class="fa fa-trash"></i> Hapus Foto
+                                    </a>
+                                <?php endif; ?>
                             </div>
 
                             <div class="form-group">

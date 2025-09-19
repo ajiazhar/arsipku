@@ -51,12 +51,12 @@
 
                         <div class="form-group">
                             <label>Pencipta</label>
-                            <input type="text" class="form-control" name="Pencipta" required>
+                            <input type="text" class="form-control" name="Pencipta">
                         </div>
 
                         <div class="form-group">
                             <label>Bidang</label>
-                            <input type="text" class="form-control" name="Bidang" required>
+                            <input type="text" class="form-control" name="Bidang">
                         </div>
 
                         <div class="form-group">
@@ -139,7 +139,7 @@
 
                         <div class="form-group">
                             <label>Keterangan</label>
-                            <textarea class="form-control" name="keterangan" required></textarea>
+                            <textarea class="form-control" name="keterangan"></textarea>
                         </div>
 
                         <div class="form-group">

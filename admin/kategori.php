@@ -8,13 +8,13 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="breadcome-heading">
-                                <h4 style="margin-bottom: 0px">Data Kategori</h4>
+                                <h4 style="margin-bottom: 0px">Tingkat Perkembangan</h4>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <ul class="breadcome-menu" style="padding-top: 0px">
                                 <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-                                <li><span class="bread-blod">Kategori</span></li>
+                                <li><span class="bread-blod">Perkembangan</span></li>
                             </ul>
                         </div>
                     </div>
@@ -28,13 +28,12 @@
     <div class="panel panel">
 
         <div class="panel-heading">
-            <h3 class="panel-title">Data kategori</h3>
+            <h3 class="panel-title">Tingkat Perkembangan</h3>
         </div>
         <div class="panel-body">
 
-
             <div class="pull-right">
-                <a href="kategori_tambah.php" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah kategori</a>
+                <a href="kategori_tambah.php" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
             </div>
 
             <br>
@@ -72,8 +71,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                Apakah anda yakin ingin menghapus data ini? <br>file dan semua yang
-                                                berhubungan akan dihapus secara permanen.
+                                                Apakah anda yakin ingin menghapus data ini? <br>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"

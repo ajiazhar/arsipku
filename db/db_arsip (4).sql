@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Sep 2025 pada 16.08
+-- Waktu pembuatan: 19 Sep 2025 pada 04.57
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_nama`, `admin_username`, `admin_password`, `admin_foto`) VALUES
-(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500', '589321099_DSC03129.JPG');
+(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500', '237011684_Screenshot1.png');
 
 -- --------------------------------------------------------
 
@@ -54,6 +54,7 @@ CREATE TABLE `arsip` (
   `arsip_tahun` year(4) DEFAULT NULL,
   `arsip_petugas` int(11) NOT NULL,
   `arsip_kode` varchar(255) NOT NULL,
+  `arsip_bidang` varchar(100) DEFAULT NULL,
   `arsip_nama` varchar(255) NOT NULL,
   `arsip_kategori` int(11) NOT NULL,
   `arsip_keterangan` text NOT NULL,
@@ -71,31 +72,33 @@ CREATE TABLE `arsip` (
 -- Dumping data untuk tabel `arsip`
 --
 
-INSERT INTO `arsip` (`arsip_id`, `arsip_waktu_upload`, `arsip_tahun`, `arsip_petugas`, `arsip_kode`, `arsip_nama`, `arsip_kategori`, `arsip_keterangan`, `arsip_deskripsi`, `arsip_rak`, `arsip_sampul`, `arsip_index`, `arsip_box`, `arsip_jumlah`, `surat_akses`, `arsip_file`) VALUES
-(2, '2019-10-10 15:09:59', NULL, 4, 'ARSIP-MN-0002', 'File keberngkatan', 4, 'tes ttead', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1162363338_Screen Shot 2019-10-10 at 13.22.15.png'),
-(3, '2019-10-10 16:02:44', NULL, 4, 'asda', 'asdasd 2x', 3, 'asdasd', NULL, NULL, NULL, NULL, NULL, '0', NULL, '432536246_mamunur.pdf'),
-(4, '2019-10-12 17:02:16', NULL, 5, 'MN-002', 'Contoh Surat Izin Pelaksanaan', 4, 'Ini Contoh Surat Izin Pelaksanaan', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1352467019_c4611_sample_explain.pdf'),
-(5, '2019-10-12 17:03:01', NULL, 5, 'MN-003', 'Contoh Keputusan Kerja', 3, 'Contoh Keputusan Kerja pegawai', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1765932248_Contoh-surat-lamaran-kerja-pdf (1).pdf'),
-(6, '2019-10-12 17:03:37', NULL, 5, 'MN-004', 'Contoh Surat Izin Pegawai', 7, 'berikut Contoh Surat Izin Pegawai untuk pelaksana kerja', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1651167980_instructions-for-adding-your-logo.pdf'),
-(7, '2019-10-12 17:04:30', NULL, 5, 'MN-005', 'Contoh SPK Proyek Kontraktor', 5, 'Contoh SPK Proyek Kontraktor adalah contoh surat SPK KONTRAK', NULL, NULL, NULL, NULL, NULL, '0', NULL, '142845393_OoPdfFormExample.pdf'),
-(8, '2019-10-12 17:05:22', NULL, 5, 'MN-006', 'SPK Kontrak Jembatan', 6, 'Surat SPK Kontrak Jembatan Layang', NULL, NULL, NULL, NULL, NULL, '0', NULL, '106615077_sample-link_1.pdf'),
-(9, '2019-10-12 17:06:55', NULL, 6, 'MN-008', 'Contoh Curiculum Vitae Untuk Lamaran Kerja', 10, 'Contoh Curiculum Vitae Untuk Lamaran Kerja untuk pegawai baru', NULL, NULL, NULL, NULL, NULL, '0', NULL, '927990343_pdf-sample(1).pdf'),
-(10, '2019-10-12 17:07:30', NULL, 6, 'MN-009', 'Surat Cuti Sakit Pegawai', 7, 'Contoh Surat Cuti Sakit Pegawai baru', NULL, NULL, NULL, NULL, NULL, '0', NULL, '2071946811_PEMBUATAN FILE PDF_FNH_tamim (1).pdf'),
-(320, '2025-09-14 13:57:05', '2025', 8, '500', 'aduh', 10, 'aji', 'tes', 6, '19', NULL, '01', NULL, 2, '1058524412_wa arsip.jpg'),
-(321, '2025-09-14 14:05:38', '2026', 8, '400', 'aduhade', 4, 'tos', 'tes', 6, '19', 2, '01', '1 Berkas', 4, '20439603_coba1.xlsx'),
-(322, '2025-09-14 14:13:23', '2022', 8, '100', 'ihsanhz', 10, 'ihsan', 'ihsan', 6, '30', 4, '19', '5', 4, '1079121941_Lego_Family_Adventure_Animation.mp4'),
-(335, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 0, '19', 4, '2', '1 Bundel', NULL, ''),
-(336, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 6637/LS/2010 Keg. Pembangunan / Renovasi Polinde / Polkesdes (DAK) Rp. 84.433.536', 0, '20', 4, '2', '1 Bundel', NULL, ''),
-(337, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 6639/ LS/2010 Keg. Pembangunan / Rehabilitasi Puskesma (Lanjutan DAU) Rp. 87.902.238', 0, '21', 4, '2', '1 Bundel', NULL, ''),
-(338, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 6640/LS/2010 Keg. Pendidikan Perjenjangan atrutual', 0, '22', 4, '2', '1 Bundel', NULL, ''),
-(339, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7054/GU/2010 Keg. Evaluasi Berkala temuan hasil pengawasan', 0, '23', 4, '3', '1 Berkas', NULL, ''),
-(340, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7052/GU/2010 Keg. Tindak Lanjut hasil temuan pengawasan', 0, '24', 4, '3', '1 Berkas', NULL, ''),
-(341, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7053/GU/2010  Keg. Koordinasi pengawasan yang lebih konferensif/ kormonev Rp. 25.163.200', 0, '25', 4, '3', '1 Berkas', NULL, ''),
-(342, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7051/GU/2010 Keg. Inventarisasi temuan pengawasan Rp 846.850', 0, '26', 4, '3', '1 Berkas', NULL, ''),
-(343, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7050/GU/2010 Keg. Pengendalian manajemen pelaksanaan kebijaksanaan KPH/SPIP Rp. 620.000', 0, '27', 4, '3', '1 Berkas', NULL, ''),
-(344, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7049/GU/2010 Keg. Pengawasan internal secara berkala irban 1 Rp. 20.721.050', 0, '28', 4, '3', '1 Berkas', NULL, ''),
-(345, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7048/GU/2010 Keg. Pemeliharaan rutin/ berkala jabatan Rp. 5.100.000', 0, '29', 4, '3', '1 Berkas', NULL, ''),
-(346, '2025-09-14 14:52:14', '2010', 8, '900', 'dinas keshatan', 1, 'Baik', 'SP2D No. 7047/GU/2010 Keg. Rapat rapat koordinasi dan konsultasi keluar daerah Rp. 14.400.000', 0, '30', 4, '3', '1 Berkas', NULL, '');
+INSERT INTO `arsip` (`arsip_id`, `arsip_waktu_upload`, `arsip_tahun`, `arsip_petugas`, `arsip_kode`, `arsip_bidang`, `arsip_nama`, `arsip_kategori`, `arsip_keterangan`, `arsip_deskripsi`, `arsip_rak`, `arsip_sampul`, `arsip_index`, `arsip_box`, `arsip_jumlah`, `surat_akses`, `arsip_file`) VALUES
+(2, '2019-10-10 15:09:59', NULL, 4, 'ARSIP-MN-0002', NULL, 'File keberngkatan', 4, 'tes ttead', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1162363338_Screen Shot 2019-10-10 at 13.22.15.png'),
+(3, '2019-10-10 16:02:44', NULL, 4, 'asda', NULL, 'asdasd 2x', 3, 'asdasd', NULL, NULL, NULL, NULL, NULL, '0', NULL, '432536246_mamunur.pdf'),
+(4, '2019-10-12 17:02:16', NULL, 5, 'MN-002', NULL, 'Contoh Surat Izin Pelaksanaan', 4, 'Ini Contoh Surat Izin Pelaksanaan', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1352467019_c4611_sample_explain.pdf'),
+(5, '2019-10-12 17:03:01', NULL, 5, 'MN-003', NULL, 'Contoh Keputusan Kerja', 3, 'Contoh Keputusan Kerja pegawai', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1765932248_Contoh-surat-lamaran-kerja-pdf (1).pdf'),
+(6, '2019-10-12 17:03:37', NULL, 5, 'MN-004', NULL, 'Contoh Surat Izin Pegawai', 7, 'berikut Contoh Surat Izin Pegawai untuk pelaksana kerja', NULL, NULL, NULL, NULL, NULL, '0', NULL, '1651167980_instructions-for-adding-your-logo.pdf'),
+(7, '2019-10-12 17:04:30', NULL, 5, 'MN-005', NULL, 'Contoh SPK Proyek Kontraktor', 5, 'Contoh SPK Proyek Kontraktor adalah contoh surat SPK KONTRAK', NULL, NULL, NULL, NULL, NULL, '0', NULL, '142845393_OoPdfFormExample.pdf'),
+(8, '2019-10-12 17:05:22', NULL, 5, 'MN-006', NULL, 'SPK Kontrak Jembatan', 6, 'Surat SPK Kontrak Jembatan Layang', NULL, NULL, NULL, NULL, NULL, '0', NULL, '106615077_sample-link_1.pdf'),
+(9, '2019-10-12 17:06:55', NULL, 6, 'MN-008', NULL, 'Contoh Curiculum Vitae Untuk Lamaran Kerja', 10, 'Contoh Curiculum Vitae Untuk Lamaran Kerja untuk pegawai baru', NULL, NULL, NULL, NULL, NULL, '0', NULL, '927990343_pdf-sample(1).pdf'),
+(10, '2019-10-12 17:07:30', NULL, 6, 'MN-009', NULL, 'Surat Cuti Sakit Pegawai', 7, 'Contoh Surat Cuti Sakit Pegawai baru', NULL, NULL, NULL, NULL, NULL, '0', NULL, '2071946811_PEMBUATAN FILE PDF_FNH_tamim (1).pdf'),
+(335, '2025-09-14 14:52:14', '2010', 8, '900', NULL, 'dinas keshatan', 1, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 0, '19', 4, '2', '1 Bundel', NULL, ''),
+(336, '2025-09-14 14:52:14', '2010', 8, '900', NULL, 'dinas keshatan', 1, 'Baik', 'SP2D No. 6637/LS/2010 Keg. Pembangunan / Renovasi Polinde / Polkesdes (DAK) Rp. 84.433.536', 0, '20', 4, '2', '1 Bundel', NULL, ''),
+(337, '2025-09-14 14:52:14', '2010', 8, '900', NULL, 'dinas keshatan', 1, 'Baik', 'SP2D No. 6639/ LS/2010 Keg. Pembangunan / Rehabilitasi Puskesma (Lanjutan DAU) Rp. 87.902.238', 0, '21', 4, '2', '1 Bundel', NULL, ''),
+(364, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, '0', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 5, '19', 4, '2', '1 Bundel', 3, ''),
+(365, '0000-00-00 00:00:00', '2026', 8, '900', NULL, 'intansi Kesehatan', 4, '0', 'SP2D No. 6637/LS/2010 Keg. Pembangunan / Renovasi Polinde / Polkesdes (DAK) Rp. 84.433.536', 6, '20', 4, '2', '1 Bundel', 1, ''),
+(366, '0000-00-00 00:00:00', '2027', 8, '900', NULL, 'intansi Kesehatan', 5, '0', 'SP2D No. 6637/LS/2010 Keg. Pembangunan / Renovasi Polinde / Polkesdes (DAK) Rp. 84.433.536', 7, '21', 4, '2', '1 Bundel', 1, ''),
+(367, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, '0ppp', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(368, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(369, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(370, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(371, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(372, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(373, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(374, '0000-00-00 00:00:00', '2025', 8, '900', NULL, 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, ''),
+(381, '2025-09-17 21:13:26', '0000', 8, 'ARSIP-20250917161146', NULL, 'tes', 4, 'tes', 'tes', 13, '19', 4, '02', '', 4, 'ARSIP-20250917161146.pdf'),
+(382, '2025-09-17 21:44:19', '2022', 8, 'ARSIP-20250917164340', 'pengolahan', 'tes', 3, '', 'tes', 6, '19', 4, '02', '1 Bundel', 9, 'ARSIP-20250917164340_1758120259.pdf'),
+(383, '2025-09-18 08:48:26', '2025', 4, '900', 'TES', 'intansi Kesehatan', 3, 'Baik', 'SP2D No. 440/LS/2010 Keg. Pembinaan, pengendalian dan pengawasan gerakan rehabilitasi hutan dan lahan (DAK) Rp. 43.401.868', 12, '19', 4, '2', '1 Bundel', 9, '');
 
 -- --------------------------------------------------------
 
@@ -156,14 +159,13 @@ CREATE TABLE `kategori` (
 
 INSERT INTO `kategori` (`kategori_id`, `kategori_nama`, `kategori_keterangan`) VALUES
 (1, 'Tidak berkategori', 'Semua yang tidak memiliki kategori'),
-(3, 'Surat Keputusan', 'Format arsip untuk surat keputusan\r\n'),
-(4, 'Surat Izin Pelaksanaan', 'Contoh format surat izin pelaksaan pekerjaan'),
-(5, 'Surat Perintah Kerja Proyek jalan', 'Contoh format surat perintah untuk pekerjaan proyek jalan'),
+(3, 'Asli', 'Format arsip untuk surat keputusan\r\n'),
+(4, 'Copy', 'Contoh format surat izin pelaksaan pekerjaan'),
+(5, 'Tembusan', 'Contoh format surat perintah untuk pekerjaan proyek jalan'),
 (6, 'Surat Perintah Kerja Proyek Jembatan', 'Contoh format untuk surat perintah kerja proyek jembatan'),
 (7, 'Surat Kesehatan Pegawai', 'Surat kesehatan untuk pegawai'),
 (8, 'Surat Lampiran Skripsi', 'Surat contoh lampiran untuk skripsi'),
-(10, 'Curiculum Vitae', 'Contoh format surat curiculum vitae untuk kenaikan jabatan'),
-(14, 'Surat Izin Sakit', 'sakitt');
+(10, 'Curiculum Vitae', 'Contoh format surat curiculum vitae untuk kenaikan jabatan');
 
 -- --------------------------------------------------------
 
@@ -186,7 +188,7 @@ CREATE TABLE `petugas` (
 INSERT INTO `petugas` (`petugas_id`, `petugas_nama`, `petugas_username`, `petugas_password`, `petugas_foto`) VALUES
 (4, 'Vikrih Yanto', 'petugas1', '202cb962ac59075b964b07152d234b70', ''),
 (5, 'Junaidi Mus', 'petugas2', 'ac5604a8b8504d4ff5b842480df02e91', ''),
-(8, 'ihsanhz', 'ihsan', '81dc9bdb52d04dc20036dbd8313ed055', '279437702_DSC03173.JPG'),
+(8, 'ihsanhz', 'ihsan', '81dc9bdb52d04dc20036dbd8313ed055', ''),
 (9, 'aji', 'aji2', '202cb962ac59075b964b07152d234b70', '');
 
 -- --------------------------------------------------------
@@ -247,7 +249,8 @@ INSERT INTO `surat_akses` (`akses_id`, `akses_nama`, `akses_keterangan`) VALUES
 (2, 'Pemerintah', NULL),
 (3, 'Presiden', 'untuk presiden'),
 (4, 'Internal', 'khusus internal'),
-(6, 'kerja praktek', 'kerja praktek');
+(6, 'kerja praktek', 'kerja praktek'),
+(9, 'ihsan', 'husus ihsan');
 
 -- --------------------------------------------------------
 
@@ -271,7 +274,7 @@ INSERT INTO `user` (`user_id`, `user_nama`, `user_username`, `user_password`, `u
 (8, 'Samsul Bahri', 'user1', '24c9e15e52afc47c225b757e7bee1f9d', ''),
 (9, 'Reza Yuzanni', 'user2', '7e58d63b60197ceb55a1c487989a3720', ''),
 (10, 'Ajir Muhajier', 'user3', '92877af70a45fd6a2ed7fe81e1236b78', ''),
-(11, 'aji', 'aji', '202cb962ac59075b964b07152d234b70', '982689687_DSC03144.JPG'),
+(11, 'aji', 'aji', '202cb962ac59075b964b07152d234b70', ''),
 (16, 'ihsan', 'ihsan2', '202cb962ac59075b964b07152d234b70', '');
 
 -- --------------------------------------------------------
@@ -383,7 +386,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `arsip`
 --
 ALTER TABLE `arsip`
-  MODIFY `arsip_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
+  MODIFY `arsip_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=384;
 
 --
 -- AUTO_INCREMENT untuk tabel `arsip_rak`
@@ -419,7 +422,7 @@ ALTER TABLE `riwayat`
 -- AUTO_INCREMENT untuk tabel `surat_akses`
 --
 ALTER TABLE `surat_akses`
-  MODIFY `akses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `akses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

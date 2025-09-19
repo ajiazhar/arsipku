@@ -46,7 +46,7 @@
                         <th>Box</th>
                         <th>Rak</th>
                         <th>Tingkat Perkembangan</th>
-                        <td>Hak Akses</td>
+                        <th>Hak Akses</th>
                         <th>Keterangan</th>
                         <th class="text-center" width="20%">OPSI</th>
                     </tr>
@@ -57,7 +57,7 @@
                     $arsip = mysqli_query(
                         $koneksi,
                         "SELECT 
-                            a.arsip_id,
+                             a.arsip_id,
                             a.arsip_tahun,
                             a.arsip_kode,
                             a.arsip_nama,
@@ -68,14 +68,17 @@
                             a.arsip_sampul,
                             a.arsip_box,
                             COALESCE(sa.akses_nama, 'Belum diatur') AS akses_nama,
+                            COALESCE(i.index_nama, 'Belum diatur') AS index_nama,  -- ✅ pakai i.index_nama, bukan a.index_nama
+                            a.arsip_jumlah,
                             a.arsip_keterangan,
                             a.arsip_deskripsi,
                             a.arsip_file
                         FROM arsip a
-                        LEFT JOIN kategori k   ON a.arsip_kategori = k.kategori_id
-                        LEFT JOIN petugas p    ON a.arsip_petugas  = p.petugas_id
-                        LEFT JOIN arsip_rak r  ON a.arsip_rak   = r.rak_id
-                        LEFT JOIN surat_akses sa ON a.surat_akses = sa.akses_id
+                        LEFT JOIN kategori k     ON a.arsip_kategori = k.kategori_id
+                        LEFT JOIN petugas p      ON a.arsip_petugas  = p.petugas_id
+                        LEFT JOIN arsip_rak r    ON a.arsip_rak      = r.rak_id
+                        LEFT JOIN surat_akses sa ON a.surat_akses    = sa.akses_id
+                        LEFT JOIN `index` i      ON a.arsip_index    = i.index_id
                         ORDER BY a.arsip_id DESC"
                     );
 

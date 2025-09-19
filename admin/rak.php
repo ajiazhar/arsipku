@@ -82,16 +82,19 @@
                                     </div>
                                 </div>
 
-                                <div class="btn-group">
-                                    <a href="rak_edit.php?id=<?php echo $p['rak_id']; ?>" class="btn btn-default"
-                                        title="Edit">
-                                        <i class="fa fa-wrench"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModal_<?php echo $p['rak_id']; ?>">
-                                        <i class="fa fa-trash"></i>
-                                </div>
-                            </td>
+                                <?php
+                                if ($p['rak_id'] != 6) {
+                                    ?>
+                                    <div class="btn-group">
+                                        <a href="rak_edit.php?id=<?php echo $p['rak_id']; ?>" class="btn btn-default"><i
+                                                class="fa fa-wrench"></i></a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal_<?php echo $p['rak_id']; ?>">
+                                            <i class="fa fa-trash"></i>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                         </tr>
                         <?php
                     }

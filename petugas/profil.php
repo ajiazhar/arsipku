@@ -54,23 +54,27 @@
                             <?php } ?>
                         </div>
 
-                        ?>
-
                         <h4><a class="cards-hd-dn" href="#"><?php echo $s['petugas_nama']; ?></a></h4>
                         <h5>Petugas</h5>
                         <p class="ctn-cards">Pengelolaan arsip jadi lebih mudah dengan sistem informasi arsip digital.
                         </p>
+
                     </div>
                 </div>
 
             </div>
 
             <div class="col-lg-6">
-
                 <?php
                 if (isset($_GET['alert'])) {
                     if ($_GET['alert'] == "sukses") {
-                        echo "<div class='alert alert-success'>Password anda berhasil diganti!</div>";
+                        echo "<div class='alert alert-success'>Profil berhasil diperbarui!</div>";
+                    } elseif ($_GET['alert'] == "hapus_sukses") {
+                        echo "<div class='alert alert-warning'>Foto profil berhasil dihapus!</div>";
+                    } elseif ($_GET['alert'] == "gagal_upload") {
+                        echo "<div class='alert alert-danger'>Gagal mengunggah foto!</div>";
+                    } elseif ($_GET['alert'] == "format_tidak_valid") {
+                        echo "<div class='alert alert-danger'>Format file tidak valid! (hanya gif/png/jpg/jpeg)</div>";
                     }
                 }
                 ?>
@@ -99,6 +103,16 @@
                                 <label>Foto</label>
                                 <input type="file" name="foto">
                                 <small>Kosongkan jika tidak ingin mengubah foto.</small>
+                            </div>
+
+                            <div> <?php if (!empty($s['petugas_foto']) && $s['petugas_foto'] != ''): ?>
+                                    <br><br>
+                                    <a href="profil_hapus_foto.php?id=<?php echo $s['petugas_id']; ?>"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus foto profil?')">
+                                        <i class="fa fa-trash"></i> Hapus Foto
+                                    </a>
+                                <?php endif; ?>
                             </div>
 
                             <div class="form-group">

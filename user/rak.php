@@ -31,15 +31,6 @@
             <h3 class="panel-title">Data Rak</h3>
         </div>
         <div class="panel-body">
-
-
-            <div class="pull-right">
-                <a href="rak_tambah.php" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Rak</a>
-            </div>
-
-            <br>
-            <br>
-            <br>
             <table id="table" class="table table-bordered table-striped table-hover table-datatable">
                 <thead>
                     <tr>

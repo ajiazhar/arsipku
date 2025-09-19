@@ -86,7 +86,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
-                    <h3 class="box-title">Kategori Arsip</h3>
+                    <h3 class="box-title">Tingkat Perkembangan</h3>
                     <ul class="list-inline two-part-sp">
                         <li>
                             <div id="sparklinedash4"></div>

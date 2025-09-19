@@ -28,7 +28,6 @@
         <div class="panel-heading">
             <h3 class="panel-title">Semua Arsip</h3>
         </div>
-
         <div class="panel-body">
             <!-- Tombol Export (popup) -->
             <button type="button" class="btn btn-primary" style="margin-bottom:10px;" data-toggle="modal"
@@ -49,9 +48,9 @@
                                 <?php include '../koneksi.php'; ?>
 
                                 <!-- Kategori -->
-                                <label class="mt-2">Kategori</label>
-                                <select name="kategori" class="form-control">
-                                    <option value="">-- Semua Kategori --</option>
+                                <label class="mt-2">Tingkat Perkembangan</label>
+                                <select name="Tingkat Perkembangan" class="form-control">
+                                    <option value="">Semua Tingkat Perkembangan</option>
                                     <?php
                                     $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
                                     while ($k = mysqli_fetch_assoc($kategori)) {
@@ -63,7 +62,7 @@
                                 <!-- Rak -->
                                 <label class="mt-2">Rak</label>
                                 <select name="rak" class="form-control">
-                                    <option value="">-- Semua Rak --</option>
+                                    <option value="">Semua Rak</option>
                                     <?php
                                     $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak ORDER BY rak_nama ASC");
                                     while ($r = mysqli_fetch_assoc($rak)) {
@@ -81,6 +80,9 @@
                                 <label class="mt-2">Box</label>
                                 <input type="text" name="box" class="form-control" placeholder="Masukkan nomor box">
 
+                                <label class="mt-2">Pencipta</label>
+                                <input type="text" name="pencipta" class="form-control" placeholder="Masukkan pencipta">
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -92,31 +94,32 @@
             </div>
 
             <!-- Table -->
-            <table id="table" class="table table-bordered table-striped table-hover table-datatable">
-                <thead>
-                    <tr>
-                        <th width="1%">No</th>
-                        <th>Kode Klasifikasi</th>
-                        <th>Arsip</th>
-                        <th>Index</th>
-                        <th>Uraian Informasi Arsip</th>
-                        <th>Kurun Waktu</th>
-                        <th>Jumlah</th>
-                        <th>Sampul</th>
-                        <th>Box</th>
-                        <th>Rak</th>
-                        <th>Tingkat Perkembangan</th>
-                        <th>Hak Akases</th>
-                        <th>Keterangan</th>
-                        <th class="text-center" width="20%">OPSI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $no = 1;
-                    $arsip = mysqli_query(
-                        $koneksi,
-                        "SELECT 
+            <div class="table-responsive">
+                <table id="table" class="table table-bordered table-striped table-hover table-datatable">
+                    <thead>
+                        <tr>
+                            <th width="1%">No</th>
+                            <th>Kode Klasifikasi</th>
+                            <th>Arsip</th>
+                            <th>Index</th>
+                            <th>Uraian Informasi Arsip</th>
+                            <th>Kurun Waktu</th>
+                            <th>Jumlah</th>
+                            <th>Sampul</th>
+                            <th>Box</th>
+                            <th>Rak</th>
+                            <th>Tingkat Perkembangan</th>
+                            <th>Hak Akases</th>
+                            <th>Keterangan</th>
+                            <th class="text-center" width="15%">OPSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $no = 1;
+                        $arsip = mysqli_query(
+                            $koneksi,
+                            "SELECT 
                             a.arsip_id,
                             a.arsip_tahun,
                             a.arsip_kode,
@@ -140,71 +143,74 @@
                         LEFT JOIN surat_akses sa ON a.surat_akses    = sa.akses_id
                         LEFT JOIN `index` i      ON a.arsip_index    = i.index_id
                         ORDER BY a.arsip_id DESC"
-                    );
-                    while ($p = mysqli_fetch_array($arsip)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><?php echo $p['arsip_kode'] ?></td>
-                            <td>
-                                <b>Pencipta</b> : <?php echo $p['arsip_nama'] ?><br>
-                                <b>Bidang</b> : <?php echo $p['arsip_bidang'] ?><br>
-                                <?php
-                                ?>
-                            </td>
-                            <td><?php echo $p['index_nama'] ?></td>
-                            <td><?php echo $p['arsip_deskripsi'] ?></td>
-                            <td><?= $p['arsip_tahun'] ? $p['arsip_tahun'] : 'Belum diatur'; ?></td>
-                            <td><?php echo $p['arsip_jumlah'] ?></td>
-                            <td><?php echo $p['arsip_sampul']; ?></td>
-                            <td><?php echo $p['arsip_box']; ?></td>
-                            <td><?php echo $p['rak_nama']; ?></td>
-                            <td><?php echo $p['kategori_nama'] ?></td>
-                            <td><?php echo $p['akses_nama']; ?></td>
-                            <td><?php echo $p['arsip_keterangan'] ?></td>
-                            <td class="text-center">
-                                <!-- Modal Hapus -->
-                                <div class="modal fade" id="exampleModal_<?php echo $p['arsip_id']; ?>" tabindex="-1"
-                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">PERINGATAN!</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Apakah anda yakin ingin menghapus data ini? <br>file dan semua yang
-                                                berhubungan akan dihapus secara permanen.
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Batalkan</button>
-                                                <a href="arsip_hapus.php?id=<?php echo $p['arsip_id']; ?>"
-                                                    class="btn btn-primary">
-                                                    <i class="fa fa-check"></i> &nbsp; Ya, hapus
-                                                </a>
+                        );
+                        while ($p = mysqli_fetch_array($arsip)) {
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td><?php echo $p['arsip_kode'] ?></td>
+                                <td>
+                                    <b>Pencipta</b> : <?php echo $p['arsip_nama'] ?><br>
+                                    <b>Bidang</b> : <?php echo $p['arsip_bidang'] ?><br>
+                                    <?php
+                                    ?>
+                                </td>
+                                <td><?php echo $p['index_nama'] ?></td>
+                                <td><?php echo $p['arsip_deskripsi'] ?></td>
+                                <td><?= $p['arsip_tahun'] ? $p['arsip_tahun'] : 'Belum diatur'; ?></td>
+                                <td><?php echo $p['arsip_jumlah'] ?></td>
+                                <td><?php echo $p['arsip_sampul']; ?></td>
+                                <td><?php echo $p['arsip_box']; ?></td>
+                                <td><?php echo $p['rak_nama']; ?></td>
+                                <td><?php echo $p['kategori_nama'] ?></td>
+                                <td><?php echo $p['akses_nama']; ?></td>
+                                <td><?php echo $p['arsip_keterangan'] ?></td>
+                                <td class="text-center">
+                                    <!-- Modal Hapus -->
+                                    <div class="modal fade" id="exampleModal_<?php echo $p['arsip_id']; ?>" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">PERINGATAN!</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah anda yakin ingin menghapus data ini? <br>file dan semua yang
+                                                    berhubungan akan dihapus secara permanen.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Batalkan</button>
+                                                    <a href="arsip_hapus.php?id=<?php echo $p['arsip_id']; ?>"
+                                                        class="btn btn-primary">
+                                                        <i class="fa fa-check"></i> &nbsp; Ya, hapus
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="btn-group">
-                                    <a target="_blank" class="btn btn-default"
-                                        href="../arsip/<?php echo $p['arsip_file']; ?>"><i class="fa fa-download"></i></a>
-                                    <a target="_blank" href="arsip_preview.php?id=<?php echo $p['arsip_id']; ?>"
-                                        class="btn btn-default"><i class="fa fa-search"></i> Preview</a>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModal_<?php echo $p['arsip_id']; ?>">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                                    <div class="btn-group">
+                                        <a target="_blank" class="btn btn-default"
+                                            href="../arsip/<?php echo $p['arsip_file']; ?>"><i
+                                                class="fa fa-download"></i></a>
+                                        <a target="_blank" href="arsip_preview.php?id=<?php echo $p['arsip_id']; ?>"
+                                            class="btn btn-default"><i class="fa fa-search"></i> Preview</a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal_<?php echo $p['arsip_id']; ?>">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

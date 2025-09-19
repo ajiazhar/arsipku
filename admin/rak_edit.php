@@ -61,19 +61,14 @@
                                 <label></label>
                                 <input type="submit" class="btn btn-primary" value="Simpan">
                             </div>
-
                         </form>
-
                         <?php
                     }
                     ?>
-
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
 
 

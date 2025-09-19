@@ -19,7 +19,6 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="../assets/css/owl.carousel.css">
     <link rel="stylesheet" href="../assets/css/owl.theme.css">
@@ -38,7 +37,7 @@
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-
+    <link rel="stylesheet" href="../assets/css/custom.css">
 
     <link rel="stylesheet" type="text/css" href="../assets/js/DataTables/datatables.css">
 
@@ -86,7 +85,7 @@
                         <li>
                             <a href="kategori.php">
                                 <span class="educate-icon educate-data-table icon-wrap sub-icon-mg"></span>
-                                <span class="mini-click-non">Data Kategori</span>
+                                <span class="mini-click-non">Perkembangan</span>
                             </a>
                         </li>
 
@@ -107,7 +106,7 @@
                         <li>
                             <a href="surat.php">
                                 <span class="educate-icon educate-message icon-wrap sub-icon-mg"></span>
-                                <span class="mini-click-non">Data Surat</span>
+                                <span class="mini-click-non">Surat Akses</span>
                             </a>
                         </li>
 
