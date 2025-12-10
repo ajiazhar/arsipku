@@ -1,5 +1,6 @@
 <?php
 include '../koneksi.php';
+
 session_start();
 
 $id = $_SESSION['id'];
@@ -17,7 +18,8 @@ if ($filename == "") {
             SET user_nama='$nama', user_username='$username' 
             WHERE user_id='$id'";
 	mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
-	header("Location: profil.php?alert=sukses");
+
+	header("Location: profil.php?msg=profile_edit");
 	exit;
 } else {
 	$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));

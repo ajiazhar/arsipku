@@ -18,7 +18,7 @@ if ($id > 0) {
         // Hapus data dari DB
         mysqli_query($koneksi, "DELETE FROM arsip WHERE arsip_id='$id' LIMIT 1") or die(mysqli_error($koneksi));
 
-        header("location:arsip.php?alert=hapus_sukses");
+        header("Location: arsip.php?msg=arsip_hapus");
         exit();
     } else {
         header("location:arsip.php?alert=tidak_ditemukan");

@@ -19,7 +19,7 @@ if ($filename == "") {
          WHERE admin_id='$id'"
 	) or die(mysqli_error($koneksi));
 
-	header("Location: profil.php?alert=sukses");
+	header("Location: profil.php?msg=profile_edit");
 	exit;
 } else {
 	$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));

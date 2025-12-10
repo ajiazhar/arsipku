@@ -18,14 +18,14 @@ $box = $_GET['box'] ?? '';
 $sql = "SELECT a.*, 
                k.kategori_nama, 
                p.petugas_nama, 
-               COALESCE(r.rak_nama, 'Belum diatur')   AS rak_nama, 
+               COALESCE(a.arsip_rak, 'Belum diatur')   AS rak_nama, 
                COALESCE(s.akses_nama, 'Belum diatur') AS akses_nama
         FROM arsip a
         LEFT JOIN kategori k    ON a.arsip_kategori = k.kategori_id
         LEFT JOIN petugas p     ON a.arsip_petugas  = p.petugas_id
-        LEFT JOIN arsip_rak r   ON a.arsip_rak      = r.rak_id
         LEFT JOIN surat_akses s ON a.surat_akses    = s.akses_id
         WHERE 1=1";
+
 
 
 // Filter jenis
@@ -41,8 +41,10 @@ if ($kategori !== '') {
 
 // Filter rak
 if ($rak !== '') {
-    $sql .= " AND a.arsip_rak = " . intval($rak);
+    $safeRak = mysqli_real_escape_string($koneksi, $rak);
+    $sql .= " AND a.arsip_rak LIKE '%$safeRak%'";
 }
+
 
 // Filter surat akses
 if ($akses !== '') {

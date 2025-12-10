@@ -18,7 +18,8 @@ $nama = $_POST['arsip_nama'] ?? '';      // pencipta
 $bidang = $_POST['arsip_bidang'] ?? null;
 $kategori = $_POST['arsip_kategori'] ?? '';
 $petugas = $_SESSION['id'];                 // otomatis dari session login
-$rak = $_POST['arsip_rak'] ?? null;
+$rak = $_POST['arsip_rak'] ?? '';
+// $rak = $_POST['arsip_rak'] ?? null;
 $akses = $_POST['surat_akses'] ?? null;
 $keterangan = $_POST['arsip_keterangan'] ?? '';
 $tahun = $_POST['tahun_arsip'] ?? '';
@@ -56,12 +57,29 @@ if (!file_put_contents($path_simpan, $dompdf->output())) {
 
 // Simpan data ke database
 $sql = "INSERT INTO arsip 
-(arsip_kode, arsip_nama, arsip_bidang, arsip_kategori, arsip_petugas, arsip_rak, surat_akses, arsip_keterangan, arsip_sampul, arsip_box, arsip_jumlah, arsip_file, arsip_waktu_upload, arsip_tahun, arsip_deskripsi, arsip_index) 
+(
+    arsip_kode,
+    arsip_nama,
+    arsip_bidang,
+    arsip_kategori,
+    arsip_petugas,
+    arsip_rak,
+    surat_akses,
+    arsip_keterangan,
+    arsip_sampul,
+    arsip_box,
+    arsip_jumlah,
+    arsip_file,
+    arsip_waktu_upload,
+    arsip_tahun,
+    arsip_deskripsi,
+    arsip_index
+) 
 VALUES 
 (
     '$kode',
     '$nama',
-    " . ($bidang ? "'$bidang'" : "NULL") . ",
+    '$bidang',
     '$kategori',
     '$petugas',
     '$rak',
@@ -83,5 +101,5 @@ if (!mysqli_query($koneksi, $sql)) {
 }
 
 // Redirect setelah sukses
-header("Location: arsip.php?alert=sukses");
+header("Location: arsip.php?msg=arsip_tambah");
 exit();

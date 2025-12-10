@@ -1,4 +1,5 @@
 <?php include 'header.php'; ?>
+<?php include '../include/notif.php'; ?>
 
 <div class="breadcome-area">
     <div class="container-fluid">
@@ -67,21 +68,6 @@
             </div>
 
             <div class="col-lg-6">
-
-                <?php
-                if (isset($_GET['alert'])) {
-                    if ($_GET['alert'] == "sukses") {
-                        echo "<div class='alert alert-success'>Profil berhasil diperbarui!</div>";
-                    } elseif ($_GET['alert'] == "hapus_sukses") {
-                        echo "<div class='alert alert-warning'>Foto profil berhasil dihapus!</div>";
-                    } elseif ($_GET['alert'] == "gagal_upload") {
-                        echo "<div class='alert alert-danger'>Gagal mengunggah foto!</div>";
-                    } elseif ($_GET['alert'] == "format_tidak_valid") {
-                        echo "<div class='alert alert-danger'>Format file tidak valid! (hanya gif/png/jpg/jpeg)</div>";
-                    }
-                }
-                ?>
-
                 <div class="panel">
                     <div class="panel-heading">
                         <h4>Data Diri</h4>
@@ -108,15 +94,6 @@
                                 <small>Kosongkan jika tidak ingin mengubah foto.</small>
                             </div>
 
-                            <div> <?php if (!empty($s['user_foto']) && $s['user_foto'] != ''): ?>
-                                    <a href="profil_hapus_foto.php?id=<?php echo $s['user_id']; ?>"
-                                        class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Yakin ingin menghapus foto profil?')">
-                                        <i class="fa fa-trash"></i> Hapus Foto
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary" value="Simpan">
                             </div>
@@ -125,14 +102,9 @@
 
                     </div>
                 </div>
-
             </div>
-
-
-
         </div>
     </div>
 </div>
-
 
 <?php include 'footer.php'; ?>

@@ -91,24 +91,25 @@ try {
     // PREPARE INSERT
     // Perhatikan: kita menggunakan NULLIF(?,0) untuk kolom FK (index, rak, kategori, surat_akses)
     $sql = "INSERT INTO arsip (
-                arsip_waktu_upload,
-                arsip_petugas,
-                arsip_kode,
-                arsip_index,
-                arsip_nama,
-                arsip_bidang,
-                arsip_deskripsi,
-                arsip_tahun,
-                arsip_jumlah,
-                arsip_sampul,
-                arsip_box,
-                arsip_rak,
-                arsip_keterangan,
-                arsip_kategori,
-                surat_akses
-            ) VALUES (
-                NOW(), ?, ?, NULLIF(?,0), ?, ?, ?, ?, ?, ?, ?, NULLIF(?,0), ?, NULLIF(?,0), NULLIF(?,0)
-            )";
+        arsip_waktu_upload,
+        arsip_petugas,
+        arsip_kode,
+        arsip_index,
+        arsip_nama,
+        arsip_bidang,
+        arsip_deskripsi,
+        arsip_tahun,
+        arsip_jumlah,
+        arsip_sampul,
+        arsip_box,
+        arsip_rak,
+        arsip_keterangan,
+        arsip_kategori,
+        surat_akses
+    ) VALUES (
+        NOW(), ?, ?, NULLIF(?,0), ?, ?, ?, ?, ?, ?, ?, ?, ?, NULLIF(?,0), NULLIF(?,0)
+    )";
+
 
     $stmt = mysqli_prepare($koneksi, $sql);
     if (!$stmt)
@@ -147,7 +148,7 @@ try {
 
         // mapping lookup (menghasilkan id integer atau 0)
         $arsip_index = $lookupId('index', $arsip_index_in, $koneksi);
-        $arsip_rak = $lookupId('arsip_rak', $arsip_rak_in, $koneksi);
+        $arsip_rak = trim((string) $arsip_rak_in);
         $arsip_kategori = $lookupId('kategori', $arsip_kategori_in, $koneksi);
         $surat_akses = $lookupId('surat_akses', $surat_akses_in, $koneksi);
 
@@ -157,28 +158,29 @@ try {
             $tahun_arsip = (int) $tahun_in;
 
         // siapkan parameter (14 param sesuai INSERT)
-        $param1 = $petugasId;           // i
-        $param2 = $arsip_kode_in;       // s
-        $param3 = $arsip_index;         // i (NULLIF -> jadi NULL jika 0)
-        $param4 = $arsip_nama;          // s (C3)
-        $param5 = $arsip_bidang;        // s (B4) -- bisa null
-        $param6 = $arsip_deskripsi;     // s
-        $param7 = $tahun_arsip;         // i
-        $param8 = $arsip_jumlah;        // s
-        $param9 = $arsip_sampul;        // s
-        $param10 = $arsip_box;           // s
-        $param11 = $arsip_rak;           // i (NULLIF)
-        $param12 = $arsip_keterangan;    // s
-        $param13 = $arsip_kategori;      // i (NULLIF)
-        $param14 = $surat_akses;         // i (NULLIF)
+        $param1 = $petugasId;
+        $param2 = $arsip_kode_in;
+        $param3 = $arsip_index;
+        $param4 = $arsip_nama;
+        $param5 = $arsip_bidang;
+        $param6 = $arsip_deskripsi;
+        $param7 = $tahun_arsip;
+        $param8 = $arsip_jumlah;
+        $param9 = $arsip_sampul;
+        $param10 = $arsip_box;
+        $param11 = $arsip_rak;          // ✅ SEKARANG TIPE STRING
+        $param12 = $arsip_keterangan;
+        $param13 = $arsip_kategori;
+        $param14 = $surat_akses;
 
-        // types string (14 params): i s i s s s i s s s i s i i
-        $types = 'isisssisssisi i'; // human readable
+        // tipe data binding (14 param total)
+        $types = 'isisssisssssii'; // ✅ ubah dari 'isisssisssisii' jadi 3 's' berturut-turut di tengah
+
         $types = str_replace(' ', '', $types); // hasil: 'isisssisssisi i i' -> remove spaces
 
         // Build the final types exactly:
         // faster/bulletproof: set directly:
-        $types = 'isisssisssisii'; // matches param order above (14 chars)
+        $types = 'isisssisssssii'; // matches param order above (14 chars)
 
         mysqli_stmt_bind_param(
             $stmt,

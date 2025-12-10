@@ -13,5 +13,5 @@ mysqli_query(
      WHERE akses_id='$id'"
 );
 
-header("Location: surat.php");
+header("Location: surat.php?msg=edit_sukses");
 exit;

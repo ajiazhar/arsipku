@@ -32,7 +32,6 @@
             <?php
             include '../koneksi.php';
             $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
-            $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak ORDER BY rak_nama ASC");
             $akses = mysqli_query($koneksi, "SELECT * FROM surat_akses ORDER BY akses_nama ASC");
             $index = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
 
@@ -93,14 +92,11 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Rak</label>
-                            <select name="arsip_rak" class="form-control" required>
-                                <option value="">- Pilih Rak -</option>
-                                <?php while ($r = mysqli_fetch_assoc($rak)) { ?>
-                                    <option value="<?= $r['rak_id']; ?>"><?= $r['rak_nama']; ?></option>
-                                <?php } ?>
-                            </select>
+                            <input type="text" name="arsip_rak" class="form-control" placeholder="Contoh: Rak 4"
+                                required>
                         </div>
                     </div>
+
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -116,7 +112,7 @@
                         <div class="form-group">
                             <label>Index</label>
                             <select name="arsip_index" class="form-control" required>
-                                <option value="">- Pilih Index Arsip -</option>
+                                <option value="">Pilih Index Arsip</option>
                                 <?php while ($i = mysqli_fetch_assoc($index)) { ?>
                                     <option value="<?= $i['index_id']; ?>"><?= $i['index_nama']; ?></option>
                                 <?php } ?>
@@ -128,7 +124,7 @@
                         <div class="form-group">
                             <label>Tingkat Perkembangan</label>
                             <select name="arsip_kategori" class="form-control" required>
-                                <option value="">- Tingkat Perkembangan -</option>
+                                <option value="">Tingkat Perkembangan</option>
                                 <?php while ($k = mysqli_fetch_assoc($kategori)) { ?>
                                     <option value="<?= $k['kategori_id']; ?>"><?= $k['kategori_nama']; ?></option>
                                 <?php } ?>
@@ -140,7 +136,7 @@
                         <div class="form-group">
                             <label>Akses Surat</label>
                             <select name="surat_akses" class="form-control" required>
-                                <option value="">- Pilih Akses Surat -</option>
+                                <option value="">Pilih Akses Surat</option>
                                 <?php while ($sa = mysqli_fetch_assoc($akses)) { ?>
                                     <option value="<?= $sa['akses_id']; ?>"><?= $sa['akses_nama']; ?></option>
                                 <?php } ?>

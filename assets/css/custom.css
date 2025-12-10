@@ -151,3 +151,33 @@ code,
 .my-alert.danger {
     background-color: #dc3545;
 }
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    min-height: calc(100vh - 80px);
+    /* 80px = tinggi footer, bisa kamu ubah */
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    /* konten mengisi ruang kosong & dorong footer ke bawah */
+}
+
+footer,
+.footer-copy-right-area,
+.footer-copyright-area {
+    height: 80px;
+    background: #0d6efd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-top: auto;
+}

@@ -6,4 +6,6 @@ $keterangan = $_POST['keterangan'];
 
 mysqli_query($koneksi, "INSERT INTO surat_akses (akses_nama, akses_keterangan) VALUES ('$nama', '$keterangan')");
 
-header("Location: surat.php");
+header("Location: surat.php?msg=tambah_sukses");
+exit;
+?>

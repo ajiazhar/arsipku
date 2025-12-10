@@ -8,5 +8,5 @@ if (isset($_GET['id'])) {
     mysqli_query($koneksi, "DELETE FROM surat_akses WHERE akses_id='$id'");
 }
 
-header("Location: surat.php");
+header("Location: surat.php?msg=hapus_sukses");
 exit;

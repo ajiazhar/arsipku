@@ -1,5 +1,6 @@
 <?php
 include '../koneksi.php';
+
 session_start();
 
 $id = $_SESSION['id'];
@@ -20,7 +21,7 @@ if ($filename == "") {
          WHERE petugas_id='$id'"
 	) or die(mysqli_error($koneksi));
 
-	header("Location: profil.php?alert=sukses");
+	header("Location: profil.php?msg=profile_edit");
 	exit;
 } else {
 	$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
@@ -50,7 +51,7 @@ if ($filename == "") {
                      WHERE petugas_id='$id'"
 				) or die(mysqli_error($koneksi));
 
-				header("Location: profil.php?alert=sukses");
+				header("Location: profil.php?msg=profile_edit");
 				exit;
 			} else {
 				header("Location: profil.php?alert=gagal_upload");

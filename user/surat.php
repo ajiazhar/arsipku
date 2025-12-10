@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="breadcome-heading">
-                                <h4 style="margin-bottom: 0px">Data Surat</h4>
+                                <h4 style="margin-bottom: 0px">Hak Akses</h4>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -28,7 +28,7 @@
     <div class="panel panel">
 
         <div class="panel-heading">
-            <h3 class="panel-title">Data Surat</h3>
+            <h3 class="panel-title">Hak Akses</h3>
         </div>
         <div class="panel-body">
             <table id="table" class="table table-bordered table-striped table-hover table-datatable">

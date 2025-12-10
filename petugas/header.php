@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" type="text/css" href="../assets/js/DataTables/datatables.css">
 
@@ -105,12 +106,11 @@
                         </li>
 
                         <li>
-                            <a href="rak.php">
-                                <span class="educate-icon educate-library icon-wrap sub-icon-mg"></span>
-                                <span class="mini-click-non">Data Rak</span>
+                            <a href="indek.php">
+                                <span class="educate-icon educate-message icon-wrap sub-icon-mg"></span>
+                                <span class="mini-click-non">Indek</span>
                             </a>
                         </li>
-
 
                         <li>
                             <a href="riwayat.php">
@@ -119,8 +119,12 @@
                             </a>
                         </li>
 
-
-
+                        <!-- <li>
+                            <a href="rak.php">
+                                <span class="educate-icon educate-library icon-wrap sub-icon-mg"></span>
+                                <span class="mini-click-non">Data Rak</span>
+                            </a>
+                        </li> -->
 
                         <!-- <li>
                             <a href="gantipassword.php" aria-expanded="false"><span

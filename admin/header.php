@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <link rel="stylesheet" type="text/css" href="../assets/js/DataTables/datatables.css">
 
@@ -117,12 +119,12 @@
                             </a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a href="rak.php">
                                 <span class="educate-icon educate-library icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Data Rak</span>
                             </a>
-                        </li>
+                        </li> -->
 
                         <li>
                             <a href="riwayat.php">

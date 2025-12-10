@@ -39,17 +39,18 @@
                     <?php
                     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-                    $query = "SELECT a.*, 
+                    $query = "SELECT 
+                        a.*,
                         a.arsip_tahun AS tahun_arsip,
-                        k.kategori_nama, 
+                        k.kategori_nama,
                         p.petugas_nama,
-                        COALESCE(r.rak_nama, 'Belum diatur') AS rak_nama
-                        FROM arsip a
-                        LEFT JOIN kategori k ON a.arsip_kategori = k.kategori_id
-                        LEFT JOIN petugas p  ON a.arsip_petugas  = p.petugas_id
-                        LEFT JOIN arsip_rak r ON a.arsip_rak = r.rak_id
-                        WHERE a.arsip_id = '$id'
-                        LIMIT 1";
+                        i.index_nama
+                    FROM arsip a
+                    LEFT JOIN kategori k ON a.arsip_kategori = k.kategori_id
+                    LEFT JOIN petugas p  ON a.arsip_petugas  = p.petugas_id
+                    LEFT JOIN `index` i ON a.arsip_index = i.index_id
+                    WHERE a.arsip_id = '$id'
+                    LIMIT 1";
                     $res = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
 
                     if ($d = mysqli_fetch_assoc($res)) {
@@ -59,7 +60,8 @@
                         $sampul = $d['arsip_sampul'] ?? '-';
                         $box = $d['arsip_box'] ?? '-';
                         $jumlah = $d['arsip_jumlah'] ?? '-';
-                        $rak_nama = $d['rak_nama'] ?? '-';
+                        $rak_nama = $d['arsip_rak'] ?? '-';
+                        $index_nama = $d['index_nama'] ?? '-';
                         $file_name = $d['arsip_file'] ?? '';
                         $file_path = "../arsip/" . $file_name;
                         $ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));

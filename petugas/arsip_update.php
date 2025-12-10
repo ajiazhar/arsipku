@@ -41,7 +41,7 @@ if ($filename == "") {
         WHERE arsip_id='$id'
     ") or die(mysqli_error($koneksi));
 
-    header("location:arsip.php?alert=update_sukses");
+    header("Location: arsip.php?msg=arsip_edit");
     exit();
 
 } else {
@@ -83,7 +83,7 @@ if ($filename == "") {
             WHERE arsip_id='$id'
         ") or die(mysqli_error($koneksi));
 
-        header("location:arsip.php?alert=update_sukses");
+        header("Location: arsip.php?msg=arsip_edit");
         exit();
     }
 }

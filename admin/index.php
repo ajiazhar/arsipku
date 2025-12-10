@@ -84,29 +84,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
-                    <h3 class="box-title">Tingkat Perkembangan</h3>
-                    <ul class="list-inline two-part-sp">
-                        <li>
-                            <div id="sparklinedash4"></div>
-                        </li>
-                        <li class="text-right graph-four-ctn">
-                            <i class="fa fa-level-down" aria-hidden="true"></i>
-                            <span class="text-danger">
-                                <?php
-                                $jumlah_kategori = mysqli_query($koneksi, "select * from kategori");
-                                ?>
-                                <span class="counter"><?php echo mysqli_num_rows($jumlah_kategori); ?></span>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-
 
 
 <div class="product-sales-area mg-tb-30">
@@ -176,6 +156,5 @@
         </div>
     </div>
 </div>
-
 
 <?php include 'footer.php'; ?>

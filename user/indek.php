@@ -10,13 +10,13 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="breadcome-heading">
-                                        <h4 style="margin-bottom: 0px">Hak Akses</h4>
+                                        <h4 style="margin-bottom: 0px">Index</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <ul class="breadcome-menu" style="padding-top: 0px">
                                         <li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-                                        <li><span class="bread-blod">Akses</span></li>
+                                        <li><span class="bread-blod">Index</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -28,32 +28,27 @@
 
         <div class="container-fluid">
             <div class="panel panel">
-
                 <div class="panel-heading">
-                    <h3 class="panel-title">Hak Akses</h3>
+                    <h3 class="panel-title">Index</h3>
                 </div>
                 <div class="panel-body">
-
                     <table id="table" class="table table-bordered table-striped table-hover table-datatable">
                         <thead>
                             <tr>
                                 <th width="1%">No</th>
-                                <th>Nama</th>
-                                <th>Keterangan</th> <!-- Tambahan kolom -->
+                                <th>Nama Index</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             include '../koneksi.php';
                             $no = 1;
-                            $surat = mysqli_query($koneksi, "SELECT * FROM surat_akses");
-                            while ($p = mysqli_fetch_array($surat)) {
+                            $data = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
+                            while ($p = mysqli_fetch_array($data)) {
                                 ?>
                                 <tr>
                                     <td><?php echo $no++; ?></td>
-                                    <td><?php echo htmlspecialchars($p['akses_nama']); ?></td>
-                                    <td><?php echo htmlspecialchars($p['akses_keterangan']); ?></td>
-                                    <!-- tampilkan keterangan -->
+                                    <td><?php echo $p['index_nama']; ?></td>
                                 </tr>
                                 <?php
                             }

@@ -1,26 +1,39 @@
-<?php 
+<?php
 include '../koneksi.php';
-$nama  = $_POST['nama'];
+
+$nama = $_POST['nama'];
 $username = $_POST['username'];
-$password = md5($_POST['password']);
+$password = $_POST['password'];
 
-$rand = rand();
-$allowed =  array('gif','png','jpg','jpeg');
-$filename = $_FILES['foto']['name'];
-
-if($filename == ""){
-	mysqli_query($koneksi, "insert into petugas values (NULL,'$nama','$username','$password','')");
-	header("location:petugas.php");
-}else{
-	$ext = pathinfo($filename, PATHINFO_EXTENSION);
-
-	if(!in_array($ext,$allowed) ) {
-		header("location:petugas.php?alert=gagal");
-	}else{
-		move_uploaded_file($_FILES['foto']['tmp_name'], '../gambar/petugas/'.$rand.'_'.$filename);
-		$file_gambar = $rand.'_'.$filename;
-		mysqli_query($koneksi, "insert into petugas values (NULL,'$nama','$username','$password','$file_gambar')");
-		header("location:petugas.php");
-	}
+// Validasi server (backup dari JS)
+if (strlen($password) < 8 || !preg_match("/[A-Za-z]/", $password) || !preg_match("/\d/", $password)) {
+	header("location:petugas_tambah.php?alert=weak");
+	exit;
 }
 
+$password = md5($password);
+
+$rand = rand();
+$allowed = array('gif', 'png', 'jpg', 'jpeg');
+$filename = $_FILES['foto']['name'];
+
+if ($filename == "") {
+	mysqli_query($koneksi, "INSERT INTO petugas VALUES(NULL,'$nama','$username','$password','')");
+	header("location:petugas.php?msg=petugas_tambah");
+
+} else {
+
+	$ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+	if (!in_array($ext, $allowed)) {
+		header("location:petugas_tambah.php?alert=gagal");
+		exit;
+	}
+
+	$file = $rand . "_" . $filename;
+	move_uploaded_file($_FILES['foto']['tmp_name'], '../gambar/petugas/' . $file);
+
+	mysqli_query($koneksi, "INSERT INTO petugas VALUES(NULL,'$nama','$username','$password','$file')");
+	header("location:petugas.php?msg=petugas_tambah");
+}
+?>
