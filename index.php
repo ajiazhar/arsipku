@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login User | Sistem Informasi Arsip Digital</title>
+    <title>Login | Sistem Informasi Arsip Digital</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
@@ -32,11 +32,12 @@
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/design-upgrade.css">
 
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body>
+<body class="hold-transition login-page">
     <div class="error-pagewrap">
         <div class="error-page-int">
             <div class="text-center m-b-md custom-login">
@@ -54,75 +55,102 @@
                 include "koneksi.php"; // sesuaikan path koneksi
                 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-                    $password = md5($_POST['password']); // kalau di DB pakai md5, kalau plaintext hapus md5()
-                
-                    // cek admin
-                    $q = mysqli_query($koneksi, "SELECT * FROM admin 
-                        WHERE admin_username='$username' 
-                        AND admin_password='$password'");
+                    $username  = trim($_POST['username']);
+                    $plainPass = $_POST['password'];
 
-                    if (mysqli_num_rows($q) > 0) {
-                        $d = mysqli_fetch_assoc($q);
-                        $_SESSION['id'] = $d['admin_id'];
-                        $_SESSION['nama'] = $d['admin_nama'];
-                        $_SESSION['role'] = "admin";
-                        header("Location: admin/index.php");
-                        exit;
+                    // Helper: cocokkan password dengan bcrypt ATAU md5 (legacy)
+                    function checkPassword($plain, $hash) {
+                        if (password_verify($plain, $hash)) return true;          // bcrypt
+                        if (md5($plain) === $hash)           return true;          // md5 legacy
+                        return false;
                     }
 
-
-                    $q = mysqli_query($koneksi, "SELECT * FROM petugas 
-                        WHERE petugas_username='$username' 
-                        AND petugas_password='$password'");
-
-                    if (mysqli_num_rows($q) > 0) {
-                        $d = mysqli_fetch_assoc($q);
-                        $_SESSION['id'] = $d['petugas_id'];
-                        $_SESSION['nama'] = $d['petugas_nama'];
-                        $_SESSION['role'] = "petugas";
-                        header("Location: petugas/index.php");
-                        exit;
+                    // --- cek admin ---
+                    $stmt = mysqli_prepare($koneksi, "SELECT admin_id, admin_nama, admin_password FROM admin WHERE admin_username=?");
+                    mysqli_stmt_bind_param($stmt, "s", $username);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        if (checkPassword($plainPass, $row['admin_password'])) {
+                            session_regenerate_id(true);
+                            $_SESSION['id']   = $row['admin_id'];
+                            $_SESSION['nama'] = $row['admin_nama'];
+                            $_SESSION['role'] = "admin";
+                            mysqli_stmt_close($stmt);
+                            header("Location: admin/index.php");
+                            exit;
+                        }
                     }
+                    mysqli_stmt_close($stmt);
 
-
-                    // cek user
-                    $q = mysqli_query($koneksi, "SELECT * FROM user 
-                        WHERE user_username='$username' 
-                        AND user_password='$password'");
-
-                    if (mysqli_num_rows($q) > 0) {
-                        $d = mysqli_fetch_assoc($q);
-                        $_SESSION['id'] = $d['user_id'];
-                        $_SESSION['nama'] = $d['user_nama'];
-                        $_SESSION['role'] = "user";
-                        header("Location: user/index.php");
-                        exit;
+                    // --- cek petugas ---
+                    $stmt = mysqli_prepare($koneksi, "SELECT petugas_id, petugas_nama, petugas_password FROM petugas WHERE petugas_username=?");
+                    mysqli_stmt_bind_param($stmt, "s", $username);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        if (checkPassword($plainPass, $row['petugas_password'])) {
+                            session_regenerate_id(true);
+                            $_SESSION['id']   = $row['petugas_id'];
+                            $_SESSION['nama'] = $row['petugas_nama'];
+                            $_SESSION['role'] = "petugas";
+                            mysqli_stmt_close($stmt);
+                            header("Location: petugas/index.php");
+                            exit;
+                        }
                     }
-                    // kalau semua gagal
+                    mysqli_stmt_close($stmt);
+
+                    // --- cek user ---
+                    $stmt = mysqli_prepare($koneksi, "SELECT user_id, user_nama, user_password FROM user WHERE user_username=?");
+                    mysqli_stmt_bind_param($stmt, "s", $username);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    if ($row = mysqli_fetch_assoc($result)) {
+                        if (checkPassword($plainPass, $row['user_password'])) {
+                            session_regenerate_id(true);
+                            $_SESSION['id']   = $row['user_id'];
+                            $_SESSION['nama'] = $row['user_nama'];
+                            $_SESSION['role'] = "user";
+                            mysqli_stmt_close($stmt);
+                            header("Location: user/index.php");
+                            exit;
+                        }
+                    }
+                    mysqli_stmt_close($stmt);
+
+                    // semua gagal
                     $error = "Username atau password salah!";
                 }
                 ?>
                 <div class="hpanel">
                     <div class="panel-body">
-                        <center>
-                            <img class="main-logo" src="assets/img/logo/logo_dispusip.png" alt=""
-                                style="width: 170px; height: 100px;" />
-                        </center>
-                        <br>
+                        <div style="display:flex; justify-content:center; align-items:center; margin-bottom: 20px;">
+                            <img class="main-logo" src="assets/img/logo/logo_dispusip.png" alt="Logo Dispusip" style="max-width: 180px; height: auto; object-fit: contain;" />
+                        </div>
 
                         <form action="index.php" method="POST" id="loginForm">
+                            <?php if (!empty($error)): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fa fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
+                            </div>
+                            <?php endif; ?>
                             <div class="form-group">
                                 <label class="control-label" for="username">Username</label>
-                                <input type="text" placeholder="username" title="Please enter your username"
+                                <input type="text" placeholder="Masukkan username" title="Please enter your username"
                                     required="required" autocomplete="off" name="username" id="username"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
-                                <input type="password" title="Please enter your password" placeholder="******"
-                                    required="required" autocomplete="off" name="password" id="password"
-                                    class="form-control">
+                                <div style="position:relative;">
+                                    <input type="password" title="Please enter your password" placeholder="Masukkan password"
+                                        required="required" autocomplete="off" name="password" id="password"
+                                        class="form-control" style="padding-right: 40px;">
+                                    <span onclick="toggleLoginPass()" style="position:absolute; right:12px; top:50%; transform: translateY(-50%); cursor:pointer; color:#64748b;">
+                                        <i class="fa fa-eye" id="icon-login-pass"></i>
+                                    </span>
+                                </div>
                             </div>
                             <input type="submit" class="btn btn-success btn-block loginbtn" value="Login">
                         </form>
@@ -155,10 +183,18 @@
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <body class="hold-transition login-page" style="background:url(gambar/depan/bg.jpg)
-no-repeat center center fixed; background-size: cover;
- -webkit-background-size: cover; 
- -moz-background-size: cover; -o-background-size: cover;">
-    </body>
-
+    <script>
+        function toggleLoginPass() {
+            var el = document.getElementById('password');
+            var icon = document.getElementById('icon-login-pass');
+            if (el.type === "password") {
+                el.type = "text";
+                if (icon) { icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash'); }
+            } else {
+                el.type = "password";
+                if (icon) { icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye'); }
+            }
+        }
+    </script>
+</body>
 </html>

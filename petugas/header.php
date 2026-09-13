@@ -32,8 +32,9 @@
     <link rel="stylesheet" href="../assets/css/calendar/fullcalendar.print.min.css">
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1.0.0">
+    <link rel="stylesheet" href="../assets/css/custom.css?v=1.0.0">
+    <link rel="stylesheet" href="../assets/css/design-upgrade.css?v=1.0.0">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" type="text/css" href="../assets/js/DataTables/datatables.css">
@@ -48,6 +49,7 @@
         header("location:../index.php?alert=belum_login");
         exit;
     }
+    $current_page = basename($_SERVER['PHP_SELF']);
     ?>
 </head>
 
@@ -55,69 +57,68 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <!-- <a href="index.html"><img class="main-logo" src="../assets/img/logo/logo.png" alt="" /></a> -->
-                <a href="index.html"><img class="main-logo" src="../assets/img/logo/logo_dispusip.png" alt=""
-                        style="width: 170px; height: 100px;" /></a>
-                <strong><a href="index.html"><img src="../assets/img/logo/logosn.png" alt="" /></a></strong>
+                <a href="index.php"><img class="main-logo" src="../assets/img/logo/logo_dispusip.png" alt="Logo Dispusip" /></a>
+                <strong><a href="index.php"><img src="../assets/img/logo/logosn.png" alt="Logo Dispusip" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro" style="margin-top: 20px">
                     <ul class="metismenu" id="menu1">
-                        <li class="active">
+                        <li class="<?php echo ($current_page == 'index.php') ? 'active' : ''; ?>">
                             <a href="index.php">
                                 <span class="educate-icon educate-home icon-wrap"></span>
                                 <span class="mini-click-non">Dashboard</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo in_array($current_page, ['arsip.php', 'arsip_tambah.php', 'arsip_edit.php', 'arsip_preview.php']) ? 'active' : ''; ?>">
                             <a href="arsip.php">
                                 <span class="educate-icon educate-course icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Data Arsip</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo in_array($current_page, ['dokumen_tambah.php']) ? 'active' : ''; ?>">
                             <a href="dokumen_tambah.php">
                                 <span class="educate-icon educate-form icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Buat Dokumen</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo in_array($current_page, ['kategori.php', 'kategori_tambah.php', 'kategori_edit.php']) ? 'active' : ''; ?>">
                             <a href="kategori.php">
                                 <span class="educate-icon educate-data-table icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Perkembangan</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo in_array($current_page, ['user.php', 'user_tambah.php', 'user_edit.php']) ? 'active' : ''; ?>">
                             <a href="user.php">
                                 <span class="educate-icon educate-student icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Data User</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo in_array($current_page, ['surat.php', 'surat_tambah.php', 'surat_edit.php']) ? 'active' : ''; ?>">
                             <a href="surat.php">
                                 <span class="educate-icon educate-message icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Hak Akses</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo in_array($current_page, ['indek.php', 'indek_tambah.php', 'indek_edit.php']) ? 'active' : ''; ?>">
                             <a href="indek.php">
                                 <span class="educate-icon educate-message icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Indek</span>
                             </a>
                         </li>
 
-                        <li>
+                        <li class="<?php echo ($current_page == 'riwayat.php') ? 'active' : ''; ?>">
                             <a href="riwayat.php">
                                 <span class="educate-icon educate-cloud icon-wrap sub-icon-mg"></span>
                                 <span class="mini-click-non">Riwayat Unduh</span>
                             </a>
                         </li>
+                    </ul>
 
                         <!-- <li>
                             <a href="rak.php">
@@ -160,27 +161,23 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="header-top-wraper">
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-0 col-sm-12 col-xs-12">
+                                <div class="row" style="display: flex; align-items: center; width: 100%; margin: 0; justify-content: space-between;">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="display: flex; align-items: center; gap: 14px; padding: 0;">
                                         <div class="menu-switcher-pro">
                                             <button type="button" id="sidebarCollapse"
                                                 class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
                                                 <i class="educate-icon educate-nav"></i>
                                             </button>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
                                         <div class="header-top-menu tabl-d-n">
-                                            <ul class="nav navbar-nav mai-top-nav" style="margin-left: -70px;">
-                                                <li class="nav-item"><a href="#" class="nav-link">Sistem Arsip Dokumen
-                                                        Dispusip</a>
-                                                </li>
+                                            <ul class="nav navbar-nav mai-top-nav" style="margin: 0; padding: 0;">
+                                                <li class="nav-item"><a href="#" class="nav-link">Sistem Arsip Dokumen Dispusip</a></li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="header-right-info">
-                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right" style="margin-left: auto; padding: 0; display: flex; align-items: center; justify-content: flex-end;">
+                                        <div class="header-right-info" style="display: flex; align-items: center; justify-content: flex-end;">
+                                            <ul class="nav navbar-nav mai-top-nav header-right-menu" style="display: flex; align-items: center; justify-content: flex-end; margin: 0;">
 
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"

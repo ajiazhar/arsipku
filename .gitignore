@@ -1,1 +1,30 @@
+# Composer dependencies
 /vendor/
+
+# Environment & local credentials
+.env
+.env.local
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.agents/
+.gemini/
+
+# Backup, temporary, and log files
+*.bak
+*.backup
+*.tmp
+*~
+*.log

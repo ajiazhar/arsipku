@@ -32,6 +32,11 @@
                 index_edit: ["Berhasil!", "Index berhasil diperbarui!", "success"],
                 index_hapus: ["Berhasil!", "Index berhasil dihapus!", "success"],
 
+                // Rak
+                rak_tambah: ["Berhasil!", "Rak berhasil ditambahkan!", "success"],
+                rak_edit: ["Berhasil!", "Data rak berhasil diperbarui!", "success"],
+                rak_hapus: ["Berhasil!", "Rak berhasil dihapus!", "success"],
+
                 // Arsip
                 arsip_tambah: ["Berhasil!", "Arsip berhasil ditambahkan!", "success"],
                 arsip_edit: ["Berhasil!", "Arsip berhasil diperbarui!", "success"],

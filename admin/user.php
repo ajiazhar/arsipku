@@ -46,7 +46,7 @@
                         <thead>
                             <tr>
                                 <th width="1%">No</th>
-                                <th width="5%">Foto</th>
+                                <th class="text-center" width="60px">Foto</th>
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th class="text-center" width="10%">OPSI</th>
@@ -61,7 +61,7 @@
                                 ?>
                                 <tr>
                                     <td><?php echo $no++; ?></td>
-                                    <td>
+                                    <td class="text-center">
                                         <?php
                                         if ($p['user_foto'] == "") {
                                             ?>
@@ -77,12 +77,9 @@
                                     <td><?php echo $p['user_nama'] ?></td>
                                     <td><?php echo $p['user_username'] ?></td>
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-danger" onclick="hapusData(<?= $p['user_id']; ?>)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="user_edit.php?id=<?php echo $p['user_id']; ?>"
-                                                class="btn btn-default"><i class="fa fa-wrench"></i></a>
+                                        <div class="btn-action-group">
+                                            <a href="user_edit.php?id=<?php echo $p['user_id']; ?>" class="btn-action btn-action-edit" title="Edit User"><i class="fa fa-pencil"></i></a>
+                                            <a href="javascript:void(0);" class="btn-action btn-action-delete" onclick="hapusData(<?= $p['user_id']; ?>)" title="Hapus User"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>

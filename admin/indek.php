@@ -33,47 +33,49 @@
                     <h3 class="panel-title">Index</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="pull-right">
-                        <a href="indek_tambah.php" class="btn btn-primary"><i class="fa fa-plus"></i>Tambah Index</a>
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 18px;">
+                        <a href="indek_tambah.php" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <i class="fa fa-plus"></i> Tambah Index
+                        </a>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <table id="table" class="table table-bordered table-striped table-hover table-datatable">
-                        <thead>
-                            <tr>
-                                <th width="1%">No</th>
-                                <th>Nama Index</th>
-                                <th width="20%">Opsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            include '../koneksi.php';
-                            $no = 1;
-                            $data = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
-                            while ($p = mysqli_fetch_array($data)) {
-                                ?>
+
+                    <div class="table-responsive">
+                        <table id="table" class="table table-bordered table-striped table-hover table-datatable">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $no++; ?></td>
-                                    <td><?php echo $p['index_nama']; ?></td>
-
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-danger" onclick="hapusData(<?= $p['index_id']; ?>)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="indek_edit.php?id=<?php echo $p['index_id']; ?>"
-                                                class="btn btn-default"><i class="fa fa-wrench"></i></a>
-                                        </div>
-
-                                    </td>
+                                    <th width="5%" class="text-center">No</th>
+                                    <th>Nama Index</th>
+                                    <th width="12%" class="text-center">OPSI</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                include '../koneksi.php';
+                                $no = 1;
+                                $data = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
+                                while ($p = mysqli_fetch_array($data)) {
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $no++; ?></td>
+                                        <td><strong><?php echo htmlspecialchars($p['index_nama']); ?></strong></td>
+                                        <td class="text-center">
+                                            <div class="btn-action-group">
+                                                <a href="indek_edit.php?id=<?php echo $p['index_id']; ?>"
+                                                    class="btn-action btn-action-edit" title="Edit Index">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" class="btn-action btn-action-delete" onclick="hapusData(<?= $p['index_id']; ?>)" title="Hapus Index">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

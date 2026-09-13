@@ -29,79 +29,70 @@
         <div class="panel-heading">
             <h3 class="panel-title">Data Rak</h3>
         </div>
-        <div class="panel-body">
-            <div class="pull-right">
-                <a href="rak_tambah.php" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Rak</a>
-            </div>
-            <br>
-            <br>
-            <br>
-            <table id="table" class="table table-bordered table-striped table-hover table-datatable">
-                <thead>
-                    <tr>
-                        <th width="1%">No</th>
-                        <th>Nama Rak</th>
-                        <th class="text-center" width="10%">OPSI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    include '../koneksi.php';
-                    $no = 1;
-                    $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak");
-                    while ($p = mysqli_fetch_array($rak)) {
-                        ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><?php echo htmlspecialchars($p['rak_nama']); ?></td>
-                            <td class="text-center">
-                                <!-- Modal Hapus -->
-                                <div class="modal fade" id="exampleModal_<?php echo $p['rak_id']; ?>" tabindex="-1"
-                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">PERINGATAN!</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Apakah anda yakin ingin menghapus data ini? <br>file dan semua yang
-                                                berhubungan akan dihapus secara permanen.
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Batalkan</button>
-                                                <a href="rak_hapus.php?id=<?php echo $p['rak_id']; ?>"
-                                                    class="btn btn-primary">
-                                                    <i class="fa fa-check"></i> &nbsp; Ya, hapus
+            <div class="panel-body">
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 18px;">
+                    <a href="rak_tambah.php" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fa fa-plus"></i> Tambah Rak
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="table" class="table table-bordered table-striped table-hover table-datatable">
+                        <thead>
+                            <tr>
+                                <th width="5%" class="text-center">No</th>
+                                <th>Nama Rak</th>
+                                <th class="text-center" width="12%">OPSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            include '../koneksi.php';
+                            $no = 1;
+                            $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak");
+                            while ($p = mysqli_fetch_array($rak)) {
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?php echo $no++; ?></td>
+                                    <td><strong><?php echo htmlspecialchars($p['rak_nama']); ?></strong></td>
+                                    <td class="text-center">
+                                        <?php if ($p['rak_id'] != 6) { ?>
+                                            <div class="btn-action-group">
+                                                <a href="rak_edit.php?id=<?php echo $p['rak_id']; ?>" class="btn-action btn-action-edit" title="Edit Rak">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" class="btn-action btn-action-delete" onclick="hapusData(<?= $p['rak_id']; ?>)" title="Hapus Rak">
+                                                    <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                        <?php } ?>
+                                    </td>
+                                </tr>
                                 <?php
-                                if ($p['rak_id'] != 6) {
-                                    ?>
-                                    <div class="btn-group">
-                                        <a href="rak_edit.php?id=<?php echo $p['rak_id']; ?>" class="btn btn-default"><i
-                                                class="fa fa-wrench"></i></a>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#exampleModal_<?php echo $p['rak_id']; ?>">
-                                            <i class="fa fa-trash"></i>
-                                    </div>
-                                    <?php
-                                }
-                                ?>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        function hapusData(id) {
+            Swal.fire({
+                title: "Hapus data?",
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "rak_hapus.php?id=" + id + "&msg=rak_hapus";
+                }
+            });
+        }
+    </script>
 </div>
 <?php include 'footer.php'; ?>

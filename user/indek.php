@@ -32,29 +32,31 @@
                     <h3 class="panel-title">Index</h3>
                 </div>
                 <div class="panel-body">
-                    <table id="table" class="table table-bordered table-striped table-hover table-datatable">
-                        <thead>
-                            <tr>
-                                <th width="1%">No</th>
-                                <th>Nama Index</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            include '../koneksi.php';
-                            $no = 1;
-                            $data = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
-                            while ($p = mysqli_fetch_array($data)) {
-                                ?>
+                    <div class="table-responsive">
+                        <table id="table" class="table table-bordered table-striped table-hover table-datatable">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $no++; ?></td>
-                                    <td><?php echo $p['index_nama']; ?></td>
+                                    <th width="5%" class="text-center">No</th>
+                                    <th>Nama Index</th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                include '../koneksi.php';
+                                $no = 1;
+                                $data = mysqli_query($koneksi, "SELECT * FROM `index` ORDER BY index_nama ASC");
+                                while ($p = mysqli_fetch_array($data)) {
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $no++; ?></td>
+                                        <td><strong><?php echo htmlspecialchars($p['index_nama']); ?></strong></td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

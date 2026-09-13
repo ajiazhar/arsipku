@@ -1,17 +1,21 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php?alert=belum_login");
+    exit;
+}
 include '../koneksi.php';
 
-$id = $_POST['id'];
-$nama = $_POST['nama'];
-$keterangan = $_POST['keterangan']; // ambil dari form edit
+// Validasi input
+$id = intval($_POST['id']);
+$nama = trim($_POST['nama']);
+$keterangan = trim($_POST['keterangan']);
 
-// update data surat akses
-mysqli_query(
-    $koneksi,
-    "UPDATE surat_akses 
-     SET akses_nama='$nama', akses_keterangan='$keterangan' 
-     WHERE akses_id='$id'"
-);
+// PREPARED STATEMENT
+$stmt = mysqli_prepare($koneksi, "UPDATE surat_akses SET akses_nama=?, akses_keterangan=? WHERE akses_id=?");
+mysqli_stmt_bind_param($stmt, "ssi", $nama, $keterangan, $id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
 
-header("Location: surat.php?msg=edit_sukses");
+header("Location: surat.php?msg=surat_edit");
 exit;

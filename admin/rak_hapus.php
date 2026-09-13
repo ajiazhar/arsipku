@@ -1,7 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php?alert=belum_login");
+    exit;
+}
 include '../koneksi.php';
-$id = $_GET['id'];
 
-mysqli_query($koneksi, "delete from arsip_rak where rak_id='$id'");
-header("location:rak.php");
+// Validasi input
+$id = intval($_GET['id']);
+
+// PREPARED STATEMENT
+$stmt = mysqli_prepare($koneksi, "DELETE FROM arsip_rak WHERE rak_id=?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+
+header("location:rak.php?msg=rak_hapus");
 ?>

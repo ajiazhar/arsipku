@@ -34,86 +34,31 @@
                 </div>
                 <div class="panel-body">
                     <!-- Tombol Export (popup) -->
-                    <button type="button" class="btn btn-primary" style="margin-bottom:10px;" data-toggle="modal"
-                        data-target="#exportModal">
-                        <i class="fa fa-file-text-o"></i> Download Data
-                    </button>
-
-                    <!-- Modal Export -->
-                    <div class="modal fade" id="exportModal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form method="GET" action="export_excel.php">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Filter Export Arsip</h5>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <?php include '../koneksi.php'; ?>
-
-                                        <!-- Kategori -->
-                                        <label class="mt-2">Tingkat Perkembangan</label>
-                                        <select name="Tingkat Perkembangan" class="form-control">
-                                            <option value="">Semua Tingkat Perkembangan</option>
-                                            <?php
-                                            $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
-                                            while ($k = mysqli_fetch_assoc($kategori)) {
-                                                echo "<option value='{$k['kategori_id']}'>{$k['kategori_nama']}</option>";
-                                            }
-                                            ?>
-                                        </select>
-
-                                        <!-- Rak -->
-                                        <label class="mt-2">Rak</label>
-                                        <input type="text" name="rak" class="form-control"
-                                            placeholder="Masukkan nama rak">
-
-                                        <!-- Sampul -->
-                                        <label class="mt-2">Sampul</label>
-                                        <input type="text" name="sampul" class="form-control"
-                                            placeholder="Masukkan nomor sampul">
-
-                                        <!-- Box -->
-                                        <label class="mt-2">Box</label>
-                                        <input type="text" name="box" class="form-control"
-                                            placeholder="Masukkan nomor box">
-
-                                        <!-- Pencipta -->
-                                        <label class="mt-2">Pencipta</label>
-                                        <input type="text" name="pencipta" class="form-control"
-                                            placeholder="Masukkan pencipta">
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-success">Download</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div style="margin-bottom: 20px;">
+                        <button type="button" class="btn btn-export-excel btn-top-action" data-toggle="modal" data-target="#exportModal">
+                            <i class="fa fa-file-excel-o"></i> Download Data
+                        </button>
                     </div>
 
                     <!-- Table -->
                     <div class="table-responsive">
-                        <table id="table" class="table table-bordered table-striped table-hover table-datatable">
+                        <table id="table" class="table table-bordered table-striped table-hover table-datatable table-arsip">
                             <thead>
                                 <tr>
-                                    <th width="1%">No</th>
-                                    <th>Kode Klasifikasi</th>
-                                    <th>Arsip</th>
-                                    <th>Index</th>
-                                    <th>Uraian Informasi Arsip</th>
-                                    <th>Kurun Waktu</th>
-                                    <th>Jumlah</th>
-                                    <th>Sampul</th>
-                                    <th>Box</th>
-                                    <th>Rak</th>
-                                    <th>Tingkat Perkembangan</th>
-                                    <th>Hak Akases</th>
-                                    <th>Keterangan</th>
-                                    <th class="text-center" width="15%">OPSI</th>
+                                    <th class="th-no text-center" width="1%">NO</th>
+                                    <th class="th-kode">KODE KLASIFIKASI</th>
+                                    <th class="th-arsip">ARSIP</th>
+                                    <th class="th-index">INDEX</th>
+                                    <th class="th-desc">URAIAN INFORMASI ARSIP</th>
+                                    <th class="th-tahun text-center">KURUN WAKTU</th>
+                                    <th class="th-jumlah text-center">JUMLAH</th>
+                                    <th class="th-sampul text-center">SAMPUL</th>
+                                    <th class="th-box text-center">BOX</th>
+                                    <th class="th-rak text-center">RAK</th>
+                                    <th class="th-kategori text-center">TINGKAT PERKEMBANGAN</th>
+                                    <th class="th-akses text-center">HAK AKSES</th>
+                                    <th class="th-ket">KETERANGAN</th>
+                                    <th class="th-opsi text-center" width="12%">OPSI</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -147,37 +92,70 @@
                                 );
 
                                 while ($p = mysqli_fetch_array($arsip)) {
+                                    $kat = $p['kategori_nama'] ?: 'Belum diatur';
+                                    $katClass = (stripos($kat, 'asli') !== false) ? 'badge-success' : 'badge-info';
                                     ?>
                                     <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $p['arsip_kode']; ?></td>
+                                        <td class="text-center"><?= $no++; ?></td>
                                         <td>
-                                            <b>Pencipta</b>: <?= $p['arsip_nama']; ?><br>
-                                            <b>Bidang</b>: <?= $p['arsip_bidang']; ?><br>
+                                            <span class="badge-code"><?= htmlspecialchars($p['arsip_kode']); ?></span>
                                         </td>
-                                        <td><?= $p['index_nama']; ?></td>
-                                        <td><?= $p['arsip_deskripsi']; ?></td>
-                                        <td><?= $p['arsip_tahun'] ?: 'Belum diatur'; ?></td>
-                                        <td><?= $p['arsip_jumlah']; ?></td>
-                                        <td><?= $p['arsip_sampul']; ?></td>
-                                        <td><?= $p['arsip_box']; ?></td>
-                                        <td><?= $p['rak_nama']; ?></td>
-                                        <td><?= $p['kategori_nama']; ?></td>
-                                        <td><?= $p['akses_nama']; ?></td>
-                                        <td><?= $p['arsip_keterangan']; ?></td>
+                                        <td class="td-arsip">
+                                            <div class="arsip-creator">
+                                                <div class="arsip-pencipta">
+                                                    <i class="fa fa-user text-primary" style="font-size:11px;"></i>
+                                                    <?= htmlspecialchars($p['arsip_nama']); ?>
+                                                </div>
+                                                <div class="arsip-bidang">
+                                                    <i class="fa fa-building-o text-muted" style="font-size:11px;"></i>
+                                                    <?= htmlspecialchars($p['arsip_bidang']); ?>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge-meta">
+                                                <i class="fa fa-folder-o text-muted"></i> <?= htmlspecialchars($p['index_nama']); ?>
+                                            </span>
+                                        </td>
+                                        <td class="td-desc">
+                                            <div class="col-desc-text"><?= nl2br(htmlspecialchars($p['arsip_deskripsi'])); ?></div>
+                                        </td>
                                         <td class="text-center">
-                                            <div class="btn-group">
-
-                                                <a target="_blank" class="btn btn-default"
-                                                    href="../arsip/<?php echo $p['arsip_file']; ?>"><i
-                                                        class="fa fa-download"></i></a>
-                                                <a target="_blank" href="arsip_preview.php?id=<?php echo $p['arsip_id']; ?>"
-                                                    class="btn btn-default"><i class="fa fa-search"></i> Preview</a>
-                                                <button onclick="hapusData('<?php echo $p['arsip_id']; ?>')"
-                                                    class="btn btn-danger" title="Hapus">
+                                            <span class="badge-meta">
+                                                <i class="fa fa-calendar-o text-muted"></i> <?= htmlspecialchars($p['arsip_tahun'] ?: '-'); ?>
+                                            </span>
+                                        </td>
+                                        <td class="text-center"><?= htmlspecialchars($p['arsip_jumlah']); ?></td>
+                                        <td class="text-center">
+                                            <span class="badge-meta"><?= htmlspecialchars($p['arsip_sampul']); ?></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge-meta"><?= htmlspecialchars($p['arsip_box']); ?></span>
+                                        </td>
+                                        <td class="text-center"><?= htmlspecialchars($p['rak_nama']); ?></td>
+                                        <td class="text-center">
+                                            <span class="badge-status <?= $katClass; ?>"><?= htmlspecialchars($kat); ?></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge-status badge-neutral"><?= htmlspecialchars($p['akses_nama']); ?></span>
+                                        </td>
+                                        <td><?= htmlspecialchars($p['arsip_keterangan'] ?: '-'); ?></td>
+                                        <td class="text-center">
+                                            <div class="btn-action-group">
+                                                <?php if (!empty($p['arsip_file'])) { ?>
+                                                    <a target="_blank" class="btn-action btn-action-download"
+                                                        href="../arsip/<?= $p['arsip_file']; ?>" title="Download Berkas">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                <?php } ?>
+                                                <a target="_blank" href="arsip_preview.php?id=<?= $p['arsip_id']; ?>"
+                                                    class="btn-action btn-action-preview" title="Preview Arsip">
+                                                    <i class="fa fa-eye"></i> Preview
+                                                </a>
+                                                <a href="javascript:void(0);" onclick="hapusData('<?= $p['arsip_id']; ?>')"
+                                                    class="btn-action btn-action-delete" title="Hapus Data">
                                                     <i class="fa fa-trash"></i>
-                                                </button>
-
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -207,6 +185,94 @@
                 });
             }
         </script>
+    </div>
+</div>
+
+<!-- Modal Export Excel -->
+<div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 580px;">
+        <div class="modal-content">
+            <form method="GET" action="export_excel.php">
+                <div class="modal-header-custom">
+                    <div class="modal-header-left">
+                        <div class="modal-icon-badge">
+                            <i class="fa fa-file-excel-o"></i>
+                        </div>
+                        <div>
+                            <h4 class="modal-title-custom" id="exportModalLabel">Filter Export Data Arsip</h4>
+                            <p class="modal-subtitle">Pilih parameter filter untuk mengunduh berkas Excel</p>
+                        </div>
+                    </div>
+                    <button type="button" class="close-custom" data-dismiss="modal" aria-label="Close" title="Tutup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body-custom">
+                    <?php include '../koneksi.php'; ?>
+
+                    <div class="row">
+                        <!-- Tingkat Perkembangan -->
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="modal-form-group">
+                                <label><i class="fa fa-tags"></i> Tingkat Perkembangan</label>
+                                <select name="kategori" class="form-control">
+                                    <option value="">Semua Tingkat Perkembangan</option>
+                                    <?php
+                                    $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori_nama ASC");
+                                    while ($k = mysqli_fetch_assoc($kategori)) {
+                                        echo "<option value='{$k['kategori_id']}'>{$k['kategori_nama']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Rak & Box -->
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="modal-form-group">
+                                <label><i class="fa fa-archive"></i> Lokasi Rak</label>
+                                <input type="text" name="rak" class="form-control" placeholder="Masukkan nama rak">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="modal-form-group">
+                                <label><i class="fa fa-cube"></i> Nomor Box</label>
+                                <input type="text" name="box" class="form-control" placeholder="Masukkan nomor box">
+                            </div>
+                        </div>
+
+                        <!-- Sampul & Pencipta -->
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="modal-form-group">
+                                <label><i class="fa fa-folder-open-o"></i> Nomor Sampul</label>
+                                <input type="text" name="sampul" class="form-control" placeholder="Masukkan nomor sampul">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="modal-form-group">
+                                <label><i class="fa fa-user-o"></i> Pencipta Arsip</label>
+                                <input type="text" name="pencipta" class="form-control" placeholder="Masukkan pencipta">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="export-modal-tip">
+                        <i class="fa fa-info-circle text-primary" style="font-size: 15px; flex-shrink: 0;"></i>
+                        <span>Kosongkan isian di atas jika ingin mengunduh seluruh data tanpa filter.</span>
+                    </div>
+                </div>
+                <div class="modal-footer-custom">
+                    <button type="button" class="btn-modal-cancel" data-dismiss="modal">
+                        <i class="fa fa-times"></i> Batal
+                    </button>
+                    <button type="submit" class="btn-modal-download">
+                        <i class="fa fa-file-excel-o"></i> Download Excel
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

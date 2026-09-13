@@ -1,5 +1,9 @@
   .img-user {
-    width: 100px;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
   }
 
   table .btn {

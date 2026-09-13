@@ -38,9 +38,10 @@
                             <i class="fa fa-level-up" aria-hidden="true"></i>
                             <span class="counter text-success">
                                 <?php
-                                $jumlah_petugas = mysqli_query($koneksi, "select * from petugas");
+                                $jumlah_petugas = mysqli_query($koneksi, "select count(*) as total from petugas");
+                                $c_petugas = mysqli_fetch_assoc($jumlah_petugas);
                                 ?>
-                                <span class="counter"><?php echo mysqli_num_rows($jumlah_petugas); ?></span>
+                                <span class="counter"><?php echo $c_petugas['total']; ?></span>
                             </span>
                         </li>
                     </ul>
@@ -57,9 +58,10 @@
                             <i class="fa fa-level-up" aria-hidden="true"></i>
                             <span class="counter text-purple">
                                 <?php
-                                $jumlah_user = mysqli_query($koneksi, "select * from user");
+                                $jumlah_user = mysqli_query($koneksi, "select count(*) as total from user");
+                                $c_user = mysqli_fetch_assoc($jumlah_user);
                                 ?>
-                                <span class="counter"><?php echo mysqli_num_rows($jumlah_user); ?></span>
+                                <span class="counter"><?php echo $c_user['total']; ?></span>
                             </span>
                         </li>
                     </ul>
@@ -76,9 +78,30 @@
                             <i class="fa fa-level-up" aria-hidden="true"></i>
                             <span class="counter text-info">
                                 <?php
-                                $jumlah_arsip = mysqli_query($koneksi, "select * from arsip");
+                                $jumlah_arsip = mysqli_query($koneksi, "select count(*) as total from arsip");
+                                $c_arsip = mysqli_fetch_assoc($jumlah_arsip);
                                 ?>
-                                <span class="counter"><?php echo mysqli_num_rows($jumlah_arsip); ?></span>
+                                <span class="counter"><?php echo $c_arsip['total']; ?></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
+                    <h3 class="box-title">Data Kategori</h3>
+                    <ul class="list-inline two-part-sp">
+                        <li>
+                            <div id="sparklinedash4"></div>
+                        </li>
+                        <li class="text-right graph-four-ctn">
+                            <i class="fa fa-level-up" aria-hidden="true"></i>
+                            <span class="counter text-danger">
+                                <?php
+                                $jumlah_kategori = mysqli_query($koneksi, "select count(*) as total from kategori");
+                                $c_kategori = mysqli_fetch_assoc($jumlah_kategori);
+                                ?>
+                                <span class="counter"><?php echo $c_kategori['total']; ?></span>
                             </span>
                         </li>
                     </ul>

@@ -31,31 +31,31 @@
             <h3 class="panel-title">Data Rak</h3>
         </div>
         <div class="panel-body">
-            <table id="table" class="table table-bordered table-striped table-hover table-datatable">
-                <thead>
-                    <tr>
-                        <th width="1%">No</th>
-                        <th>Nama Rak</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    include '../koneksi.php';
-                    $no = 1;
-                    $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak");
-                    while ($p = mysqli_fetch_array($rak)) {
-                        ?>
+            <div class="table-responsive">
+                <table id="table" class="table table-bordered table-striped table-hover table-datatable">
+                    <thead>
                         <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><?php echo $p['rak_nama'] ?></td>
+                            <th width="5%" class="text-center">No</th>
+                            <th>Nama Rak</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-
-
+                        include '../koneksi.php';
+                        $no = 1;
+                        $rak = mysqli_query($koneksi, "SELECT * FROM arsip_rak");
+                        while ($p = mysqli_fetch_array($rak)) {
+                            ?>
+                            <tr>
+                                <td class="text-center"><?php echo $no++; ?></td>
+                                <td><strong><?php echo htmlspecialchars($p['rak_nama']); ?></strong></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>

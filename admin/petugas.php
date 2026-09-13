@@ -45,9 +45,9 @@
                         <thead>
                             <tr>
                                 <th width="1%">No</th>
-                                <th width="5%">Foto</th>
+                                <th class="text-center" width="60px">Foto</th>
                                 <th>Nama</th>
-                                <th>petugasname</th>
+                                <th>Username</th>
                                 <th class="text-center" width="10%">OPSI</th>
                             </tr>
                         </thead>
@@ -60,7 +60,7 @@
                                 ?>
                                 <tr>
                                     <td><?php echo $no++; ?></td>
-                                    <td>
+                                    <td class="text-center">
                                         <?php
                                         if ($p['petugas_foto'] == "") {
                                             ?>
@@ -76,12 +76,9 @@
                                     <td><?php echo $p['petugas_nama'] ?></td>
                                     <td><?php echo $p['petugas_username'] ?></td>
                                     <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-danger" onclick="hapusData(<?= $p['petugas_id']; ?>)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="petugas_edit.php?id=<?php echo $p['petugas_id']; ?>"
-                                                class="btn btn-default"><i class="fa fa-wrench"></i></a>
+                                        <div class="btn-action-group">
+                                            <a href="petugas_edit.php?id=<?php echo $p['petugas_id']; ?>" class="btn-action btn-action-edit" title="Edit Petugas"><i class="fa fa-pencil"></i></a>
+                                            <a href="javascript:void(0);" class="btn-action btn-action-delete" onclick="hapusData(<?= $p['petugas_id']; ?>)" title="Hapus Petugas"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>

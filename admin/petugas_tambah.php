@@ -45,39 +45,38 @@
                             <br>
                             <br>
 
-                            <form method="post" action="petugas_aksi.php" enctype="multipart/form-data">
-
+                            <form method="post" action="petugas_aksi.php" enctype="multipart/form-data" onsubmit="return cekPassword()">
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input type="text" class="form-control" name="nama" required="required">
+                                    <input type="text" class="form-control" name="nama" required="required" placeholder="Nama lengkap">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input type="text" class="form-control" name="username" required="required">
+                                    <input type="text" class="form-control" name="username" required="required" placeholder="Username">
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Masukkan Password Baru</label>
-                                        <div style="position:relative;">
-                                            <input type="password" id="pass1" name="password" class="form-control"
-                                                required>
-                                            <span onclick="togglePass('pass1')"
-                                                style="position:absolute; right:10px; top:10px; cursor:pointer;">👁</span>
-                                        </div>
-                                        <small>Min 8 karakter, kombinasi huruf & angka</small>
+                                    <label>Password</label>
+                                    <div style="position:relative;">
+                                        <input type="password" id="pass1" name="password" class="form-control" placeholder="Masukkan password" required style="padding-right: 40px;">
+                                        <span onclick="togglePass('pass1')" style="position:absolute; right:12px; top:50%; transform: translateY(-50%); cursor:pointer; color:#64748b;">
+                                            <i class="fa fa-eye" id="icon-pass1"></i>
+                                        </span>
                                     </div>
+                                    <small class="text-muted" style="display:block; margin-top:5px;"><i class="fa fa-info-circle"></i> Min. 8 karakter, kombinasi huruf & angka</small>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label>Foto</label>
-                                        <input type="file" name="foto">
-                                    </div>
+                                <div class="form-group">
+                                    <label>Foto</label>
+                                    <input type="file" name="foto" class="form-control" style="height:auto; padding:6px 12px;">
+                                </div>
 
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="submit" class="btn btn-primary" value="Simpan">
-                                    </div>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <button type="submit" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+                                        <i class="fa fa-save"></i> Simpan Petugas
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -88,26 +87,31 @@
 </div>
 
 <script>
-    // Toggle password show/hide
     function togglePass(id) {
-        let el = document.getElementById(id);
-        el.type = (el.type === "password") ? "text" : "password";
+        var el = document.getElementById(id);
+        var icon = document.getElementById('icon-' + id);
+        if (el.type === "password") {
+            el.type = "text";
+            if (icon) { icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash'); }
+        } else {
+            el.type = "password";
+            if (icon) { icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye'); }
+        }
     }
 
     function cekPassword() {
-        let pass = document.getElementById('password').value;
-        let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        var pass = document.getElementById('pass1').value;
+        var regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
 
         if (!regex.test(pass)) {
-            alert("Password harus minimal 8 karakter & terdapat huruf + angka!");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Password Kurang Kuat',
+                text: 'Password minimal 8 karakter dan harus mengandung kombinasi huruf dan angka!'
+            });
             return false;
         }
         return true;
-    }
-
-    function togglePassword() {
-        let input = document.getElementById("password");
-        input.type = (input.type === "password") ? "text" : "password";
     }
 </script>
 

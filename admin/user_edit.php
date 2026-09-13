@@ -64,19 +64,25 @@
 
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" name="password">
-                                        <small>Kosongkan jika tidak ingin mengubah password.</small>
+                                        <div style="position:relative;">
+                                            <input type="password" id="pass_edit" class="form-control" name="password" placeholder="Masukkan password baru jika ingin mengubah" style="padding-right: 40px;">
+                                            <span onclick="togglePass('pass_edit')" style="position:absolute; right:12px; top:50%; transform: translateY(-50%); cursor:pointer; color:#64748b;">
+                                                <i class="fa fa-eye" id="icon-pass_edit"></i>
+                                            </span>
+                                        </div>
+                                        <small class="text-muted" style="display:block; margin-top:5px;"><i class="fa fa-info-circle"></i> Kosongkan jika tidak ingin mengubah password.</small>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Foto</label>
-                                        <input type="file" name="foto">
-                                        <small>Kosongkan jika tidak ingin mengubah foto.</small>
+                                        <input type="file" name="foto" class="form-control" style="height:auto; padding:6px 12px;">
+                                        <small class="text-muted" style="display:block; margin-top:5px;"><i class="fa fa-info-circle"></i> Kosongkan jika tidak ingin mengubah foto.</small>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="submit" class="btn btn-primary" value="Simpan">
+                                    <div class="form-group" style="margin-top: 20px;">
+                                        <button type="submit" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+                                            <i class="fa fa-save"></i> Simpan Perubahan
+                                        </button>
                                     </div>
 
                                 </form>
@@ -92,5 +98,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePass(id) {
+        var el = document.getElementById(id);
+        var icon = document.getElementById('icon-' + id);
+        if (el.type === "password") {
+            el.type = "text";
+            if (icon) { icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash'); }
+        } else {
+            el.type = "password";
+            if (icon) { icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye'); }
+        }
+    }
+</script>
 
 <?php include 'footer.php'; ?>

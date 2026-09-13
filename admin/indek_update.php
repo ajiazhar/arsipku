@@ -1,9 +1,20 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php?alert=belum_login");
+    exit;
+}
 include '../koneksi.php';
 
-$id = $_POST['id'];
-$nama = $_POST['index_nama'];
+// Validasi input
+$id = intval($_POST['id']);
+$nama = trim($_POST['index_nama']);
 
-mysqli_query($koneksi, "UPDATE `index` SET index_nama='$nama' WHERE index_id='$id'");
+// PREPARED STATEMENT
+$stmt = mysqli_prepare($koneksi, "UPDATE `index` SET index_nama=? WHERE index_id=?");
+mysqli_stmt_bind_param($stmt, "si", $nama, $id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+
 header("Location: indek.php?msg=index_edit");
 ?>

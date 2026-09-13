@@ -181,3 +181,285 @@ footer,
     color: white;
     margin-top: auto;
 }
+
+/* ==== Tabel Arsip Responsive ==== */
+.table-datatable {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.table-datatable th,
+.table-datatable td {
+    padding: 8px 6px !important;
+    vertical-align: middle;
+}
+
+/* Kolom-kolom tabel arsip dengan lebar tetap */
+.table-datatable th:nth-child(1), /* No */
+.table-datatable td:nth-child(1) {
+    width: 40px !important;
+    max-width: 40px;
+    text-align: center;
+}
+
+.table-datatable th:nth-child(2), /* Kode Klasifikasi */
+.table-datatable td:nth-child(2) {
+    width: 90px !important;
+    max-width: 90px;
+}
+
+.table-datatable th:nth-child(3), /* Arsip */
+.table-datatable td:nth-child(3) {
+    width: 150px !important;
+    max-width: 150px;
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+.table-datatable th:nth-child(4), /* Index */
+.table-datatable td:nth-child(4) {
+    width: 90px !important;
+    max-width: 90px;
+}
+
+.table-datatable th:nth-child(5), /* Uraian Informasi */
+.table-datatable td:nth-child(5) {
+    width: 180px !important;
+    max-width: 180px;
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+.table-datatable th:nth-child(6), /* Kurun Waktu */
+.table-datatable td:nth-child(6) {
+    width: 70px !important;
+    max-width: 70px;
+    text-align: center;
+}
+
+.table-datatable th:nth-child(7), /* Jumlah */
+.table-datatable td:nth-child(7) {
+    width: 70px !important;
+    max-width: 70px;
+}
+
+.table-datatable th:nth-child(8), /* Sampul */
+.table-datatable td:nth-child(8) {
+    width: 60px !important;
+    max-width: 60px;
+    text-align: center;
+}
+
+.table-datatable th:nth-child(9), /* Box */
+.table-datatable td:nth-child(9) {
+    width: 50px !important;
+    max-width: 50px;
+    text-align: center;
+}
+
+.table-datatable th:nth-child(10), /* Rak */
+.table-datatable td:nth-child(10) {
+    width: 70px !important;
+    max-width: 70px;
+}
+
+.table-datatable th:nth-child(11), /* Tingkat Perkembangan */
+.table-datatable td:nth-child(11) {
+    width: 100px !important;
+    max-width: 100px;
+}
+
+.table-datatable th:nth-child(12), /* Hak Akses */
+.table-datatable td:nth-child(12) {
+    width: 80px !important;
+    max-width: 80px;
+}
+
+.table-datatable th:nth-child(13), /* Keterangan */
+.table-datatable td:nth-child(13) {
+    width: 120px !important;
+    max-width: 120px;
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+.table-datatable th:nth-child(14), /* OPSI */
+.table-datatable td:nth-child(14) {
+    width: 140px !important;
+    max-width: 140px;
+    text-align: center;
+}
+
+/* Button group di kolom OPSI lebih compact */
+.table-datatable .btn-group .btn {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+/* Responsif untuk layar kecil */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* DataTables wrapper */
+#table_wrapper {
+    font-size: 12px;
+}
+
+/* DataTables search box dan entries */
+.dataTables_filter input,
+.dataTables_length select {
+    font-size: 12px;
+}
+
+/* Ukuran normal foto avatar di tabel data petugas & user */
+table .img-user,
+.table .img-user,
+.table-datatable .img-user {
+    width: 45px !important;
+    height: 45px !important;
+    min-width: 45px !important;
+    min-height: 45px !important;
+    max-width: 45px !important;
+    max-height: 45px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Tombol Aksi Atas (Upload Arsip & Import Excel) */
+.btn-top-action {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    padding: 0 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    vertical-align: middle !important;
+    margin: 0 !important;
+}
+
+.btn-top-action i {
+    font-size: 14px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+}
+
+.btn-top-action.btn-primary {
+    background: linear-gradient(135deg, #1a56db 0%, #0f3797 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(26, 86, 219, 0.25) !important;
+}
+
+.btn-top-action.btn-primary:hover {
+    background: linear-gradient(135deg, #164ec7 0%, #0d2f80 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(26, 86, 219, 0.35) !important;
+    color: #ffffff !important;
+}
+
+.btn-top-action.btn-export-excel {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
+}
+
+.btn-top-action.btn-export-excel:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35) !important;
+    color: #ffffff !important;
+}
+
+/* Action Button Group in table (Edit & Hapus) */
+.btn-action-group {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
+}
+
+.btn-action {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    min-width: 32px !important;
+    max-width: 32px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    vertical-align: middle !important;
+    border: 1px solid transparent !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    outline: none !important;
+}
+
+button.btn-action,
+a.btn-action {
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+.btn-action i {
+    font-size: 13px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: middle !important;
+}
+
+.btn-action-edit {
+    background: #fffbeb !important;
+    color: #d97706 !important;
+    border-color: #fde68a !important;
+}
+.btn-action-edit:hover {
+    background: #d97706 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3) !important;
+}
+
+.btn-action-delete {
+    background: #fef2f2 !important;
+    color: #dc2626 !important;
+    border-color: #fecaca !important;
+}
+.btn-action-delete:hover {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3) !important;
+}

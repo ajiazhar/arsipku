@@ -48,12 +48,12 @@
                         <?php
                         if ($s['user_foto'] == "") {
                             ?>
-                            <img class="img-user" src="../gambar/sistem/user.png" style="object-fit:cover">
+                            <img src="../gambar/sistem/user.png" style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center;">
                             <?php
                         } else {
                             ?>
-                            <img class="img-user" src="../gambar/user/<?php echo $s['user_foto']; ?>"
-                                style="object-fit:cover">
+                            <img src="../gambar/user/<?php echo $s['user_foto']; ?>"
+                                style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center;">
                             <?php
                         }
                         ?>

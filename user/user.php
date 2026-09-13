@@ -37,7 +37,7 @@
                 <thead>
                     <tr>
                         <th width="1%">No</th>
-                        <th width="5%">Foto</th>
+                        <th class="text-center" width="60px">Foto</th>
                         <th>Nama</th>
                         <th>Username</th>
                     </tr>
@@ -51,7 +51,7 @@
                         ?>
                         <tr>
                             <td><?php echo $no++; ?></td>
-                            <td>
+                            <td class="text-center">
                                 <?php 
                                 if($p['user_foto'] == ""){
                                     ?>

@@ -48,48 +48,43 @@
 		$('.table-datatable').DataTable();
 
 
-		Morris.Area({
-			element: 'extra-area-chart',
-			data: [
+		if ($('#extra-area-chart').length > 0) {
+			Morris.Area({
+				element: 'extra-area-chart',
+				data: [
 
-				<?php
-				$dateBegin = strtotime("first day of this month");
-				$dateEnd = strtotime("last day of this month");
-
-				$awal = date("Y/m/d", $dateBegin);
-				$akhir = date("Y/m/d", $dateEnd);
-
-				$arsip = mysqli_query($koneksi, "SELECT * FROM riwayat WHERE date(riwayat_waktu) >= '$awal' AND date(riwayat_waktu) <= '$akhir'");
-				while ($p = mysqli_fetch_array($arsip)) {
-					$tgl = date('Y/m/d', strtotime($p['riwayat_waktu']));
-					$jumlah = mysqli_query($koneksi, "select * from riwayat where date(riwayat_waktu)='$tgl'");
-					$j = mysqli_num_rows($jumlah);
-					?>
-						{
-						period: '<?php echo date('Y-m-d', strtotime($p['riwayat_waktu'])) ?>',
-						Unduh: <?php echo $j ?>,
-					},
 					<?php
-				}
-				?>
+					$awal = date("Y-m-01 00:00:00");
+					$akhir = date("Y-m-t 23:59:59");
 
-			],
-			xkey: 'period',
-			ykeys: ['Unduh'],
-			labels: ['Unduh'],
-			xLabels: 'day',
-			xLabelAngle: 45,
-			pointSize: 3,
-			fillOpacity: 0,
-			pointStrokeColors: ['#006DF0'],
-			behaveLikeLine: true,
-			gridLineColor: '#e0e0e0',
-			lineWidth: 1,
-			hideHover: 'auto',
-			lineColors: ['#006DF0'],
-			resize: true
+					$arsip = mysqli_query($koneksi, "SELECT DATE(riwayat_waktu) AS tgl, COUNT(*) AS total FROM riwayat WHERE riwayat_waktu >= '$awal' AND riwayat_waktu <= '$akhir' GROUP BY DATE(riwayat_waktu) ORDER BY tgl ASC");
+					while ($p = mysqli_fetch_assoc($arsip)) {
+						?>
+							{
+							period: '<?php echo $p['tgl']; ?>',
+							Unduh: <?php echo (int)$p['total']; ?>,
+						},
+						<?php
+					}
+					?>
+				],
+				xkey: 'period',
+				ykeys: ['Unduh'],
+				labels: ['Unduh'],
+				xLabels: 'day',
+				xLabelAngle: 45,
+				pointSize: 3,
+				fillOpacity: 0,
+				pointStrokeColors: ['#006DF0'],
+				behaveLikeLine: true,
+				gridLineColor: '#e0e0e0',
+				lineWidth: 1,
+				hideHover: 'auto',
+				lineColors: ['#006DF0'],
+				resize: true
 
-		});
+			});
+		}
 	});
 </script>
 </body>

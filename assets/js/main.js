@@ -46,6 +46,12 @@
 	---------------------------------*/
 	$(".sicker-menu").sticky({topSpacing:0});
 		
+	function SmoothlyMenu() {
+		if (!$('body').hasClass('mini-navbar') || $('body').hasClass('body-small')) {
+			$('#sidebar').removeAttr('style');
+		}
+	}
+		
 	$('#sidebarCollapse').on('click', function () {
 		$("body").toggleClass("mini-navbar");
 		SmoothlyMenu();
@@ -95,6 +101,14 @@
         easingType: 'linear',
         scrollSpeed: 900,
         animation: 'fade'
-    }); 	   
- 
+	});
+	/*--------------------------
+	 Fix Bootstrap Modals Stacking
+	---------------------------- */
+	$(document).on('show.bs.modal', '.modal', function () {
+		if (!$(this).parent().is('body')) {
+			$(this).appendTo('body');
+		}
+	});
+
 })(jQuery); 

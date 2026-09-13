@@ -1,7 +1,19 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php?alert=belum_login");
+    exit;
+}
 include '../koneksi.php';
-$nama = $_POST['nama'];
-$keterangan = $_POST['keterangan'];
 
-mysqli_query($koneksi, "insert into kategori values (NULL,'$nama','$keterangan')");
+// Validasi input
+$nama = trim($_POST['nama']);
+$keterangan = trim($_POST['keterangan']);
+
+// PREPARED STATEMENT
+$stmt = mysqli_prepare($koneksi, "INSERT INTO kategori (kategori_nama, kategori_keterangan) VALUES (?, ?)");
+mysqli_stmt_bind_param($stmt, "ss", $nama, $keterangan);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_close($stmt);
+
 header("Location: kategori.php?msg=kategori_tambah");

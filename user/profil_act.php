@@ -1,63 +1,72 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+    header("Location: ../index.php?alert=belum_login");
+    exit();
+}
+
 include '../koneksi.php';
 
-session_start();
-
-$id = $_SESSION['id'];
-$username = $_POST['username'];
-$nama = $_POST['nama'];
+$id = intval($_SESSION['id']);
+$username = trim($_POST['username'] ?? '');
+$nama = trim($_POST['nama'] ?? '');
 
 $rand = rand();
 $allowed = ['gif', 'png', 'jpg', 'jpeg'];
-
 $filename = $_FILES['foto']['name'] ?? '';
 
-if ($filename == "") {
-	// Update tanpa ganti foto
-	$sql = "UPDATE user 
-            SET user_nama='$nama', user_username='$username' 
-            WHERE user_id='$id'";
-	mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
+if (empty($filename)) {
+    // Update tanpa ganti foto - PREPARED STATEMENT
+    $stmt = mysqli_prepare($koneksi, "UPDATE user SET user_nama=?, user_username=? WHERE user_id=?");
+    mysqli_stmt_bind_param($stmt, "ssi", $nama, $username, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-	header("Location: profil.php?msg=profile_edit");
-	exit;
+    $_SESSION['nama'] = $nama;
+    header("Location: profil.php?msg=profile_edit");
+    exit();
 } else {
-	$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
-	if (in_array($ext, $allowed)) {
-		// cek error upload
-		if ($_FILES['foto']['error'] === 0) {
+    if (in_array($ext, $allowed)) {
+        if ($_FILES['foto']['error'] === 0 && $_FILES['foto']['size'] <= 5 * 1024 * 1024) {
+            // Ambil foto lama untuk dihapus
+            $stmt = mysqli_prepare($koneksi, "SELECT user_foto FROM user WHERE user_id=?");
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_execute($stmt);
+            $res = mysqli_stmt_get_result($stmt);
+            $l = mysqli_fetch_assoc($res);
+            mysqli_stmt_close($stmt);
 
-			// hapus foto lama kalau ada
-			$lama = mysqli_query($koneksi, "SELECT user_foto FROM user WHERE user_id='$id'");
-			$l = mysqli_fetch_assoc($lama);
-			if (!empty($l['user_foto']) && file_exists("../gambar/user/" . $l['user_foto'])) {
-				unlink("../gambar/user/" . $l['user_foto']);
-			}
+            if (!empty($l['user_foto']) && file_exists("../gambar/user/" . $l['user_foto'])) {
+                unlink("../gambar/user/" . $l['user_foto']);
+            }
 
-			// simpan foto baru
-			$nama_file = $rand . '_' . preg_replace("/[^a-zA-Z0-9\.\-_]/", "", $filename); // amankan nama file
-			$target = '../gambar/user/' . $nama_file;
+            // Upload foto baru
+            $clean_basename = preg_replace("/[^a-zA-Z0-9\-_]/", "", pathinfo($filename, PATHINFO_FILENAME));
+            $nama_file = $rand . '_' . $clean_basename . '.' . $ext;
+            $target = '../gambar/user/' . $nama_file;
 
-			if (move_uploaded_file($_FILES['foto']['tmp_name'], $target)) {
-				$sql = "UPDATE user 
-                        SET user_nama='$nama', 
-                            user_username='$username', 
-                            user_foto='$nama_file' 
-                        WHERE user_id='$id'";
-				mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
-				header("Location: profil.php?alert=sukses");
-				exit;
-			} else {
-				header("Location: profil.php?alert=gagal_upload");
-				exit;
-			}
-		} else {
-			header("Location: profil.php?alert=gagal_upload");
-			exit;
-		}
-	} else {
-		header("Location: profil.php?alert=format_tidak_valid");
-		exit;
-	}
+            if (move_uploaded_file($_FILES['foto']['tmp_name'], $target)) {
+                $stmt = mysqli_prepare($koneksi, "UPDATE user SET user_nama=?, user_username=?, user_foto=? WHERE user_id=?");
+                mysqli_stmt_bind_param($stmt, "sssi", $nama, $username, $nama_file, $id);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+
+                $_SESSION['nama'] = $nama;
+                header("Location: profil.php?alert=sukses");
+                exit();
+            } else {
+                header("Location: profil.php?alert=gagal_upload");
+                exit();
+            }
+        } else {
+            header("Location: profil.php?alert=gagal_upload");
+            exit();
+        }
+    } else {
+        header("Location: profil.php?alert=format_tidak_valid");
+        exit();
+    }
 }
+?>

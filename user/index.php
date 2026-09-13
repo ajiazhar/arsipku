@@ -44,10 +44,11 @@
                                             <i class="fa fa-level-up" aria-hidden="true"></i>
                                             <span class="counter text-info">
                                                 <?php
-                                                $jumlah_arsip = mysqli_query($koneksi, "select * from arsip");
+                                                $jumlah_arsip = mysqli_query($koneksi, "select count(*) as total from arsip");
+                                                $c_arsip = mysqli_fetch_assoc($jumlah_arsip);
                                                 ?>
                                                 <span
-                                                    class="counter"><?php echo mysqli_num_rows($jumlah_arsip); ?></span>
+                                                    class="counter"><?php echo $c_arsip['total']; ?></span>
                                             </span>
                                         </li>
                                     </ul>
@@ -65,10 +66,11 @@
                                             <i class="fa fa-level-down" aria-hidden="true"></i>
                                             <span class="text-danger">
                                                 <?php
-                                                $jumlah_kategori = mysqli_query($koneksi, "select * from kategori");
+                                                $jumlah_kategori = mysqli_query($koneksi, "select count(*) as total from kategori");
+                                                $c_kategori = mysqli_fetch_assoc($jumlah_kategori);
                                                 ?>
                                                 <span
-                                                    class="counter"><?php echo mysqli_num_rows($jumlah_kategori); ?></span>
+                                                    class="counter"><?php echo $c_kategori['total']; ?></span>
                                             </span>
                                         </li>
                                     </ul>
@@ -110,12 +112,12 @@
                                 <?php
                                 if ($s['user_foto'] == "") {
                                     ?>
-                                    <img class="img-user" src="../gambar/sistem/user.png" style="object-fit:cover">
+                                    <img src="../gambar/sistem/user.png" style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center;">
                                     <?php
                                 } else {
                                     ?>
-                                    <img class="img-user" src="../gambar/user/<?php echo $s['user_foto']; ?>"
-                                        style="object-fit:cover">
+                                    <img src="../gambar/user/<?php echo $s['user_foto']; ?>"
+                                        style="width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center;">
                                     <?php
                                 }
                                 ?>
