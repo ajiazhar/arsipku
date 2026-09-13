@@ -5,6 +5,20 @@
 .env
 .env.local
 
+# User uploaded documents & profile photos (keep folder & .htaccess only)
+/arsip/*
+!/arsip/.htaccess
+!/arsip/.gitkeep
+
+/gambar/admin/*
+!/gambar/admin/.gitkeep
+
+/gambar/petugas/*
+!/gambar/petugas/.gitkeep
+
+/gambar/user/*
+!/gambar/user/.gitkeep
+
 # Operating System files
 .DS_Store
 .DS_Store?
